@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChangeIS — Principal Architecture & Integration</title>
+  <meta name="description" content="ChangeIS delivers resilient platforms at the intersection of DevOps, ML/AI, and Security. Founder: Wayne Kirk Schmidt, Principal Architect & Integrator.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #0F2D52;
+      --blue:   #1A5F9C;
+      --steel:  #2E7BC4;
+      --sky:    #D6E8F7;
+      --mist:   #EEF5FC;
+      --body:   #1E1E2E;
+      --mid:    #4A5568;
+      --light:  #8FA8C0;
+      --white:  #FFFFFF;
+      --rule:   #B8D4EE;
+      --serif:  'DM Serif Display', Georgia, serif;
+      --sans:   'DM Sans', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--white);
+      color: var(--body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ─────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 3rem;
+      height: 64px;
+      background: rgba(10, 22, 40, 0.97);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(184, 212, 238, 0.15);
+    }
+
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.4rem;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+
+    .nav-logo span { color: var(--sky); }
+
+    .nav-links {
+      display: flex; gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--sky); }
+
+    /* ── HERO ─────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      background: #0A1628;
+      position: relative;
+      overflow: hidden;
+      padding: 8rem 3rem 5rem;
+    }
+
+    /* Background image */
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: url('background.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0.55;
+      pointer-events: none;
+    }
+
+    /* Dark gradient overlay — keeps text readable, fades bottom into page */
+    .hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(10, 22, 42, 0.72) 0%,
+        rgba(15, 45, 82, 0.45) 50%,
+        rgba(10, 22, 42, 0.80) 100%
+      );
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+      position: relative; z-index: 1;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--steel);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.2s;
+    }
+
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      color: var(--white);
+      line-height: 1.05;
+      margin-bottom: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.35s;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--sky);
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 1.8vw, 1.25rem);
+      color: rgba(255,255,255,0.55);
+      max-width: 580px;
+      margin-bottom: 3rem;
+      font-weight: 300;
+      line-height: 1.7;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.5s;
+    }
+
+    .hero-philosophy {
+      border-left: 3px solid var(--steel);
+      padding-left: 1.5rem;
+      margin-bottom: 3.5rem;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.65s;
+    }
+
+    .hero-philosophy p {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.8;
+      font-weight: 300;
+    }
+
+    .hero-philosophy p strong {
+      color: rgba(255,255,255,0.85);
+      font-weight: 400;
+    }
+
+    .hero-actions {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.8s;
+    }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.85rem 2rem;
+      background: var(--steel);
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border: 2px solid var(--steel);
+      transition: all 0.25s;
+    }
+
+    .btn-primary:hover {
+      background: transparent;
+      color: var(--sky);
+      border-color: var(--sky);
+    }
+
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.85rem 2rem;
+      background: transparent;
+      color: rgba(255,255,255,0.65);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border: 2px solid rgba(255,255,255,0.2);
+      transition: all 0.25s;
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--sky);
+      color: var(--sky);
+    }
+
+    /* ── METRICS STRIP ────────────────────────────────── */
+    .metrics {
+      background: var(--mist);
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      padding: 2.5rem 3rem;
+    }
+
+    .metrics-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+
+    .metric {
+      padding: 0.5rem 2rem;
+      border-right: 1px solid var(--rule);
+      opacity: 0;
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    .metric:first-child { padding-left: 0; }
+    .metric:last-child { border-right: none; }
+
+    .metric-value {
+      font-family: var(--serif);
+      font-size: 2.2rem;
+      color: var(--navy);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+
+    .metric-label {
+      font-size: 0.78rem;
+      color: var(--blue);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── SECTIONS ─────────────────────────────────────── */
+    section {
+      padding: 6rem 3rem;
+    }
+
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--steel);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      color: var(--navy);
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-intro {
+      font-size: 1.05rem;
+      color: var(--mid);
+      max-width: 620px;
+      line-height: 1.75;
+      font-weight: 300;
+      margin-bottom: 3.5rem;
+    }
+
+    /* ── DOMAINS ──────────────────────────────────────── */
+    #domains { background: var(--white); }
+
+    .domains-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+    }
+
+    .domain-card {
+      background: var(--white);
+      padding: 2.5rem;
+      transition: background 0.25s;
+    }
+
+    .domain-card:hover { background: var(--mist); }
+
+    .domain-icon {
+      width: 40px; height: 40px;
+      margin-bottom: 1.25rem;
+      color: var(--steel);
+    }
+
+    .domain-name {
+      font-family: var(--serif);
+      font-size: 1.35rem;
+      color: var(--navy);
+      margin-bottom: 0.75rem;
+    }
+
+    .domain-desc {
+      font-size: 0.9rem;
+      color: var(--mid);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    .domain-tags {
+      margin-top: 1.25rem;
+      display: flex; flex-wrap: wrap; gap: 0.4rem;
+    }
+
+    .tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      background: var(--sky);
+      color: var(--blue);
+    }
+
+    /* ── APPROACH ─────────────────────────────────────── */
+    #approach { background: var(--navy); }
+
+    #approach .section-title { color: var(--white); }
+    #approach .section-intro { color: rgba(255,255,255,0.5); }
+    #approach .section-eyebrow { color: var(--steel); }
+
+    .approach-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .approach-card {
+      border-top: 3px solid var(--steel);
+      padding-top: 1.5rem;
+    }
+
+    .approach-num {
+      font-family: var(--serif);
+      font-size: 3rem;
+      color: rgba(46, 123, 196, 0.25);
+      line-height: 1;
+      margin-bottom: 0.75rem;
+    }
+
+    .approach-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--sky);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .approach-desc {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.75;
+      font-weight: 300;
+    }
+
+    /* ── PROOF ────────────────────────────────────────── */
+    #proof { background: var(--mist); }
+
+    .proof-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .proof-card {
+      background: var(--white);
+      border: 1px solid var(--rule);
+      padding: 2rem;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+
+    .proof-card:hover {
+      border-color: var(--steel);
+      box-shadow: 0 4px 24px rgba(15, 45, 82, 0.08);
+    }
+
+    .proof-industry {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--steel);
+      margin-bottom: 0.75rem;
+    }
+
+    .proof-headline {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      color: var(--navy);
+      line-height: 1.3;
+      margin-bottom: 0.75rem;
+    }
+
+    .proof-result {
+      font-size: 0.85rem;
+      color: var(--mid);
+      line-height: 1.65;
+      font-weight: 300;
+    }
+
+    .proof-impact {
+      margin-top: 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--rule);
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--blue);
+      letter-spacing: 0.04em;
+    }
+
+    .proof-more {
+      margin-top: 3rem;
+      text-align: center;
+    }
+
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.85rem 2.5rem;
+      background: transparent;
+      color: var(--navy);
+      text-decoration: none;
+      font-size: 0.83rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      border: 2px solid var(--navy);
+      transition: all 0.25s;
+    }
+
+    .btn-outline:hover {
+      background: var(--navy);
+      color: var(--white);
+    }
+
+    /* ── ABOUT ────────────────────────────────────────── */
+    #about { background: var(--white); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+    }
+
+    .about-text p {
+      font-size: 0.95rem;
+      color: var(--mid);
+      line-height: 1.8;
+      font-weight: 300;
+      margin-bottom: 1.25rem;
+    }
+
+    .about-text p strong {
+      color: var(--body);
+      font-weight: 500;
+    }
+
+    .about-links {
+      margin-top: 2.5rem;
+      display: flex; flex-direction: column; gap: 0.6rem;
+    }
+
+    .about-link {
+      display: flex; align-items: center; gap: 0.75rem;
+      font-size: 0.85rem;
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .about-link:hover { color: var(--navy); }
+
+    .about-link::before {
+      content: '→';
+      font-size: 0.8rem;
+    }
+
+    .about-patents {
+      background: var(--mist);
+      border: 1px solid var(--rule);
+      padding: 2rem;
+    }
+
+    .patents-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--steel);
+      margin-bottom: 1.5rem;
+    }
+
+    .patent-item {
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .patent-item:last-child { border-bottom: none; }
+
+    .patent-name {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--navy);
+      margin-bottom: 0.3rem;
+    }
+
+    .patent-desc {
+      font-size: 0.82rem;
+      color: var(--mid);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    /* ── CONTACT ──────────────────────────────────────── */
+    #contact {
+      background: var(--navy);
+      text-align: center;
+      padding: 7rem 3rem;
+    }
+
+    #contact .section-eyebrow { color: var(--steel); }
+    #contact .section-title { color: var(--white); margin-bottom: 1rem; }
+
+    .contact-sub {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.45);
+      font-weight: 300;
+      margin-bottom: 3rem;
+      max-width: 480px;
+      margin-left: auto; margin-right: auto;
+    }
+
+    .contact-email {
+      display: inline-block;
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      color: var(--sky);
+      text-decoration: none;
+      border-bottom: 2px solid rgba(214, 232, 247, 0.3);
+      padding-bottom: 0.25rem;
+      transition: border-color 0.2s;
+      margin-bottom: 3rem;
+    }
+
+    .contact-email:hover { border-color: var(--sky); }
+
+    .contact-links {
+      display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;
+    }
+
+    .contact-link {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .contact-link:hover { color: var(--sky); }
+
+    /* ── FOOTER ───────────────────────────────────────── */
+    footer {
+      background: #080F1A;
+      padding: 1.5rem 3rem;
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid rgba(184, 212, 238, 0.08);
+    }
+
+    .footer-logo {
+      font-family: var(--serif);
+      font-size: 1rem;
+      color: rgba(255,255,255,0.3);
+    }
+
+    .footer-copy {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.2);
+    }
+
+    /* ── ANIMATIONS ───────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    .metric:nth-child(1) { animation-delay: 0.1s; }
+    .metric:nth-child(2) { animation-delay: 0.2s; }
+    .metric:nth-child(3) { animation-delay: 0.3s; }
+    .metric:nth-child(4) { animation-delay: 0.4s; }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ───────────────────────────────────── */
+    @media (max-width: 900px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links { gap: 1.5rem; }
+      section { padding: 4rem 1.5rem; }
+      .hero { padding: 7rem 1.5rem 4rem; }
+      .metrics { padding: 2rem 1.5rem; }
+      .metrics-inner { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+      .metric { border-right: none; padding: 0; }
+      .domains-grid { grid-template-columns: 1fr; }
+      .approach-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .proof-grid { grid-template-columns: 1fr; }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .hero-title { font-size: 2.5rem; }
+      .metrics-inner { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#"><span>Change</span>IS</a>
+    <ul class="nav-links">
+      <li><a href="#domains">Domains</a></li>
+      <li><a href="#approach">Approach</a></li>
+      <li><a href="#proof">Proof</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Engage</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="hero-eyebrow">Principal Architecture &amp; Integration · Boston · Tokyo · Global</p>
+      <h1 class="hero-title">
+        Platforms that stand<br>
+        <em>the test of change.</em>
+      </h1>
+      <p class="hero-sub">
+        ChangeIS delivers resilient, adaptive systems at the intersection of DevOps, ML/AI, and Security — built to amplify your team and outlast the engagement.
+      </p>
+      <div class="hero-philosophy">
+        <p><strong>I build to stand the test of change.</strong><br>
+        I build to amplify you.<br>
+        I build to ensure you know how to build.</p>
+      </div>
+      <div class="hero-actions">
+        <a href="https://casestudies.changeis.io" class="btn-primary">View Case Studies →</a>
+        <a href="#contact" class="btn-ghost">Start a Conversation</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- METRICS -->
+  <div class="metrics">
+    <div class="metrics-inner">
+      <div class="metric">
+        <div class="metric-value">$300M+</div>
+        <div class="metric-label">Measurable outcomes delivered</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">9+</div>
+        <div class="metric-label">Patents in ML, security &amp; AI orchestration</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">30 yrs</div>
+        <div class="metric-label">Finance · Fintech · Insurance · Infrastructure</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">Global</div>
+        <div class="metric-label">Boston → Tokyo · APAC · EMEA · AMER</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOMAINS -->
+  <section id="domains">
+    <div class="section-inner">
+      <p class="section-eyebrow reveal">Core Domains</p>
+      <h2 class="section-title reveal">Three disciplines.<br>One integrated system.</h2>
+      <p class="section-intro reveal">
+        Most practitioners specialize in one domain. ChangeIS operates at the intersection of all three — because the hardest problems live in the gaps between them.
+      </p>
+      <div class="domains-grid reveal">
+        <div class="domain-card">
+          <svg class="domain-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="4" y="8" width="32" height="24" rx="2"/>
+            <path d="M12 20l4 4 8-8"/>
+            <path d="M4 14h32"/>
+          </svg>
+          <h3 class="domain-name">DevOps &amp; Automation</h3>
+          <p class="domain-desc">Orchestration, CI/CD, infrastructure-as-code, and observability platforms that scale. Built and operated 60,000+ host fleets. 82% deployment time reductions. Systems that run themselves.</p>
+          <div class="domain-tags">
+            <span class="tag">Kubernetes</span>
+            <span class="tag">Terraform</span>
+            <span class="tag">Kafka</span>
+            <span class="tag">AWS · GCP · Azure</span>
+          </div>
+        </div>
+        <div class="domain-card">
+          <svg class="domain-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="20" cy="20" r="6"/>
+            <path d="M20 4v4M20 32v4M4 20h4M32 20h4"/>
+            <path d="M9 9l3 3M28 28l3 3M9 31l3-3M28 12l3-3"/>
+          </svg>
+          <h3 class="domain-name">ML / AI Systems</h3>
+          <p class="domain-desc">Production ML pipelines, adaptive reasoning systems, and edge-deployable AI. Patent holder in distributed AI orchestration (MORPHOS/9STACK©) — private, adaptive, bounded by ethics and purpose.</p>
+          <div class="domain-tags">
+            <span class="tag">Reasoning Systems</span>
+            <span class="tag">Edge AI</span>
+            <span class="tag">LangChain</span>
+            <span class="tag">TensorFlow</span>
+          </div>
+        </div>
+        <div class="domain-card">
+          <svg class="domain-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M20 4l14 7v10c0 7-6 13-14 15C12 34 6 28 6 21V11l14-7z"/>
+            <path d="M14 20l4 4 8-8"/>
+          </svg>
+          <h3 class="domain-name">Security &amp; Resilience</h3>
+          <p class="domain-desc">Zero-trust architecture, ML-driven threat detection, and compliance automation across Tier-0 platforms. Creator of Production Perimeter, acquired by Illumio. Protection from app to network.</p>
+          <div class="domain-tags">
+            <span class="tag">Zero-Trust</span>
+            <span class="tag">Tanium</span>
+            <span class="tag">NIST 800</span>
+            <span class="tag">ISO 27000</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPROACH -->
+  <section id="approach">
+    <div class="section-inner">
+      <p class="section-eyebrow reveal">How We Work</p>
+      <h2 class="section-title reveal">Triage. Stabilize.<br>Fix. Recover. Prevent.</h2>
+      <p class="section-intro reveal">
+        Every engagement follows the same disciplined sequence — because sustainable platforms aren't built by skipping steps.
+      </p>
+      <div class="approach-grid reveal">
+        <div class="approach-card">
+          <div class="approach-num">01</div>
+          <div class="approach-title">Triage</div>
+          <p class="approach-desc">Prioritize under uncertainty. Identify the 20% of work that eliminates 80% of the risk. Understand the system before touching it.</p>
+        </div>
+        <div class="approach-card">
+          <div class="approach-num">02</div>
+          <div class="approach-title">Stabilize &amp; Fix</div>
+          <p class="approach-desc">Contain the risk. Execute on what matters now. Build confidence through fast, visible, reversible improvements.</p>
+        </div>
+        <div class="approach-card">
+          <div class="approach-num">03</div>
+          <div class="approach-title">Recover &amp; Prevent</div>
+          <p class="approach-desc">Design for long-term stability. Reduce future risk and recurrence. Leave the team knowing how to sustain and extend what was built.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROOF -->
+  <section id="proof">
+    <div class="section-inner">
+      <p class="section-eyebrow reveal">Selected Outcomes</p>
+      <h2 class="section-title reveal">The work speaks.</h2>
+      <p class="section-intro reveal">
+        Outcomes are deliberately anonymized to protect client confidentiality. Full case studies available at <a href="https://casestudies.changeis.io" style="color:var(--blue);">casestudies.changeis.io</a>.
+      </p>
+      <div class="proof-grid reveal">
+        <div class="proof-card">
+          <div class="proof-industry">Finance · MSSP · DevOps</div>
+          <h3 class="proof-headline">Incident response from 20 minutes to 10 seconds</h3>
+          <p class="proof-result">Designed a Kafka-centric event processing platform for a North American MSSP supporting 90 clients — eliminating response latency without adding headcount.</p>
+          <div class="proof-impact">98.3% response time reduction · $2.14M/yr impact</div>
+        </div>
+        <div class="proof-card">
+          <div class="proof-industry">Finance · Ultra-Low Latency · ML</div>
+          <h3 class="proof-headline">¼ microsecond market data delivery</h3>
+          <p class="proof-result">Delivered NXT RAW at Nomura Securities — a patented ML-driven TSE data platform setting the Tokyo performance benchmark and establishing new revenue.</p>
+          <div class="proof-impact">$14M+ revenue generated · Sub-¼µs latency</div>
+        </div>
+        <div class="proof-card">
+          <div class="proof-industry">Infrastructure · Automation · Morgan Stanley</div>
+          <h3 class="proof-headline">60,000-host fleet at software deployment speed</h3>
+          <p class="proof-result">Built ARK, an ML-driven dependency management platform that transformed infrastructure deployment across Morgan Stanley's global estate.</p>
+          <div class="proof-impact">97% risk reduction · 17x velocity increase</div>
+        </div>
+        <div class="proof-card">
+          <div class="proof-industry">Insurance · Compliance · Automation</div>
+          <h3 class="proof-headline">Asset discovery at 99.9% accuracy</h3>
+          <p class="proof-result">Created an automated asset discovery system for an insurance firm — eliminating manual entry and delivering a clean compliance posture for audit.</p>
+          <div class="proof-impact">99.93% manual entry reduction · Audit risk eliminated</div>
+        </div>
+        <div class="proof-card">
+          <div class="proof-industry">Security · ML · Threat Detection</div>
+          <h3 class="proof-headline">Compromise detection from days to minutes</h3>
+          <p class="proof-result">Created BEACON©, a patented ML-driven threat detection system deployed across large-scale enterprise infrastructure in Asia.</p>
+          <div class="proof-impact">97% detection time reduction · Real-time response at scale</div>
+        </div>
+        <div class="proof-card">
+          <div class="proof-industry">Security · Enterprise · Acquired</div>
+          <h3 class="proof-headline">Self-learning security platform — acquired by Illumio</h3>
+          <p class="proof-result">Designed Production Perimeter, a patented ML firewall that segregates production from development and adapts to observed behavior — deployed across 80+ trading locations.</p>
+          <div class="proof-impact">60M+ failures prevented · Technology acquired by Illumio</div>
+        </div>
+      </div>
+      <div class="proof-more reveal">
+        <a href="https://casestudies.changeis.io" class="btn-outline">All 15 Case Studies →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-inner">
+      <div class="about-grid">
+        <div>
+          <p class="section-eyebrow reveal">About ChangeIS</p>
+          <h2 class="section-title reveal">Built on a simple belief:<br>change should be durable.</h2>
+          <div class="about-text reveal">
+            <p>ChangeIS was founded on the observation that most technology transformations fail not because of the technology — but because they're built to impress rather than to last. <strong>Every system we build is designed to outlast the engagement.</strong></p>
+            <p>Principal Architect <strong>Wayne Kirk Schmidt</strong> brings 30 years across finance, fintech, insurance, and infrastructure — from Morgan Stanley's global trading floors to Nomura's Tokyo market data systems to independent advisory across three continents.</p>
+            <p>Known for moving fluidly between architecture, build, and advisory. Known for technical depth that goes deeper than most people at the executive level. Known, by friends, as <em>"a tinkerer, a problem solver, incredibly creative."</em></p>
+            <p>Based between Boston and Tokyo. Available globally for principal architecture, Head of Platform/DevOps/AI, fractional CTO, and senior advisory engagements.</p>
+          </div>
+          <div class="about-links reveal">
+            <a href="https://waynekirkschmidt.me" class="about-link">Personal site &amp; CV</a>
+            <a href="https://casestudies.changeis.io" class="about-link">Case studies</a>
+            <a href="https://github.com/wayne-kirk-schmidt" class="about-link">GitHub</a>
+            <a href="https://linkedin.com/in/waynekirkschmidt" class="about-link">LinkedIn</a>
+            <a href="https://backofthenapkin.tech" class="about-link">Blog — Back of the Napkin</a>
+          </div>
+        </div>
+        <div class="reveal">
+          <div class="about-patents">
+            <div class="patents-title">Selected Patents</div>
+            <div class="patent-item">
+              <div class="patent-name">MORPHOS / 9STACK©</div>
+              <div class="patent-desc">Distributed reasoning-based AI orchestration — private, adaptive, edge-deployable AI that evolves with memory, context, and bounded ethics.</div>
+            </div>
+            <div class="patent-item">
+              <div class="patent-name">Production Perimeter©</div>
+              <div class="patent-desc">ML-driven adaptive firewall platform — self-learning security enforcement across global trading infrastructure. Acquired by Illumio.</div>
+            </div>
+            <div class="patent-item">
+              <div class="patent-name">NXT RAW© / NXT</div>
+              <div class="patent-desc">Ultra-low latency market data delivery and correlation — sub-¼ microsecond signal delivery at institutional scale.</div>
+            </div>
+            <div class="patent-item">
+              <div class="patent-name">BEACON©</div>
+              <div class="patent-desc">ML-driven threat detection and compromise identification — 97% reduction in detection time at enterprise scale.</div>
+            </div>
+            <div class="patent-item" style="border-bottom:none;">
+              <div class="patent-desc" style="font-style:italic; color:var(--light);">9+ patents total spanning AI orchestration, security automation, and distributed systems. Refresh in progress.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-inner">
+      <p class="section-eyebrow">Engage</p>
+      <h2 class="section-title">Let's start with<br><em style="font-style:italic; color:var(--sky);">What if…?</em></h2>
+      <p class="contact-sub">The best architecture conversations start with a simple question. Open to principal roles, fractional CTO engagements, advisory, and consulting globally.</p>
+      <a href="mailto:wayne.kirk.schmidt@gmail.com" class="contact-email">wayne.kirk.schmidt@gmail.com</a>
+      <div class="contact-links">
+        <a href="https://waynekirkschmidt.me" class="contact-link">Personal Site</a>
+        <a href="https://casestudies.changeis.io" class="contact-link">Case Studies</a>
+        <a href="https://linkedin.com/in/waynekirkschmidt" class="contact-link">LinkedIn</a>
+        <a href="https://github.com/wayne-kirk-schmidt" class="contact-link">GitHub</a>
+        <a href="https://backofthenapkin.tech" class="contact-link">Blog</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-logo">ChangeIS</span>
+    <span class="footer-copy">© 2026 ChangeIS · Wayne Kirk Schmidt · Boston · Tokyo · Global</span>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
