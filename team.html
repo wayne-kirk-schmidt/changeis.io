@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Team — ChangeIS</title>
+  <meta name="description" content="The people behind ChangeIS — principal architecture, ML/AI, DevOps, and security engineering."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="./styles.css"/>
+  <style>
+    .team-hero {
+      padding: 5rem 2rem 3rem;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .team-hero .section-eyebrow { margin-bottom: 0.75rem; }
+    .team-hero h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+    .team-hero p {
+      font-size: 1.05rem;
+      color: var(--light);
+      max-width: 580px;
+      line-height: 1.7;
+    }
+
+    .team-grid {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 2rem 5rem;
+      display: grid;
+      gap: 2rem;
+    }
+
+    .member-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-left: 5px solid var(--blue);
+      border-radius: 16px;
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    @media (max-width: 640px) {
+      .member-card { grid-template-columns: 1fr; }
+    }
+
+    .member-left {}
+
+    .member-name {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .member-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--sky);
+      margin-bottom: 1rem;
+    }
+
+    .member-location {
+      font-size: 0.85rem;
+      color: var(--light);
+      margin-bottom: 1.25rem;
+    }
+
+    .member-links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .member-link {
+      color: var(--sky);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+
+    .member-link:hover { color: var(--white); }
+
+    .member-bio p {
+      color: var(--light);
+      font-size: 0.975rem;
+      line-height: 1.75;
+      margin-bottom: 1rem;
+    }
+
+    .member-bio p:last-child { margin-bottom: 0; }
+
+    .member-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 1.25rem;
+    }
+
+    .member-tag {
+      background: rgba(59,111,212,0.2);
+      border: 1px solid rgba(59,111,212,0.3);
+      color: var(--sky);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+
+    .team-footer {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 2rem 4rem;
+      text-align: center;
+    }
+
+    .team-footer p {
+      color: var(--light);
+      font-size: 0.95rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .back-link {
+      color: var(--sky);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: color 0.15s;
+    }
+
+    .back-link:hover { color: var(--white); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="./index.html"><span>Change</span>IS</a>
+    <ul class="nav-links">
+      <li><a href="./index.html#domains">Domains</a></li>
+      <li><a href="./index.html#approach">Approach</a></li>
+      <li><a href="./index.html#proof">Proof</a></li>
+      <li><a href="./index.html#about">About</a></li>
+      <li><a href="./index.html#contact">Engage</a></li>
+    </ul>
+  </nav>
+
+  <!-- TEAM HERO -->
+  <div class="team-hero">
+    <p class="section-eyebrow">The People</p>
+    <h1>Built by people who<br><em style="font-style:italic;color:var(--sky);">do the work.</em></h1>
+    <p>ChangeIS is a principal-led practice. Every engagement is delivered by experienced architects and engineers — not managed from a distance.</p>
+  </div>
+
+  <!-- TEAM GRID -->
+  <div class="team-grid">
+
+    <div class="member-card">
+      <div class="member-left">
+        <div class="member-name">Wayne Kirk Schmidt</div>
+        <div class="member-title">Founder · Principal Architect</div>
+        <div class="member-location">Boston, MA · Tokyo, Japan · Global</div>
+        <div class="member-links">
+          <a class="member-link" href="https://www.waynekirkschmidt.me">Personal Site &amp; CV →</a>
+          <a class="member-link" href="https://casestudies.changeis.io">Case Studies →</a>
+          <a class="member-link" href="https://github.com/wayne-kirk-schmidt">GitHub →</a>
+          <a class="member-link" href="https://linkedin.com/in/waynekirkschmidt">LinkedIn →</a>
+          <a class="member-link" href="https://backofthenapkin.tech">Blog →</a>
+          <a class="member-link" href="mailto:wayne.kirk.schmidt@changeis.io">wayne.kirk.schmidt@changeis.io →</a>
+        </div>
+      </div>
+      <div class="member-bio">
+        <p>Wayne is a principal technologist and security platform builder with 30+ years designing, building, and operating mission-critical systems at institutional scale — with Security, DevOps, and ML/AI as the core and foundation.</p>
+        <p>Built Production Perimeter, a patented ML-driven adaptive security enforcement platform acquired by Illumio. Built BEACON, an ML-driven compromise detection system reducing identification time by 97%. Built ARK, an ML-driven dependency management platform across 60,000+ hosts. Perimeter engineering team lead at Morgan Stanley New York across 80+ institutional trading locations.</p>
+        <p>Hands-on background in zero-trust architecture, threat detection, distributed systems, and AI-driven security automation — combined with executive ownership of Tier-0 systems under adversarial and regulatory pressure.</p>
+        <p>Currently open to principal-level engagements — fractional, advisory, or full-time.</p>
+        <div class="member-tags">
+          <span class="member-tag">Zero-Trust Architecture</span>
+          <span class="member-tag">ML/AI Systems</span>
+          <span class="member-tag">Platform Engineering</span>
+          <span class="member-tag">DevOps</span>
+          <span class="member-tag">Security</span>
+          <span class="member-tag">Distributed Systems</span>
+          <span class="member-tag">Patents</span>
+          <span class="member-tag">Advisory</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER NOTE -->
+  <div class="team-footer">
+    <p>ChangeIS is a growing practice. Engagements are delivered by principal-level practitioners with direct accountability for outcomes.</p>
+    <a class="back-link" href="./index.html">&larr; Back to ChangeIS</a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-logo">ChangeIS</span>
+    <span class="footer-copy">© 2026 ChangeIS · Wayne Kirk Schmidt · Boston · Tokyo · Global</span>
+  </footer>
+
+</body>
+</html>
