@@ -19,7 +19,12 @@
 
     body {
       font-family: var(--sans);
-      background: #0A1628 url('./background.png') center top / cover fixed;
+      background-color: #0A1628;
+      background-image: url('./background.png');
+      background-size: cover;
+      background-position: center top;
+      background-repeat: no-repeat;
+      background-attachment: scroll;
       color: var(--body);
       font-size: 16px;
       line-height: 1.6;
