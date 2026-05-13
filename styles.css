@@ -160,7 +160,7 @@
 
     .hero-philosophy p {
       font-size: 0.95rem;
-      color: rgba(255,255,255,0.5);
+      color: rgba(255,255,255,0.7);
       line-height: 1.8;
       font-weight: 300;
     }
@@ -358,7 +358,7 @@
     #approach { background: rgba(15, 45, 82, 0.85); }
 
     #approach .section-title { color: var(--white); }
-    #approach .section-intro { color: rgba(255,255,255,0.5); }
+    #approach .section-intro { color: rgba(255,255,255,0.7); }
     #approach .section-eyebrow { color: var(--steel); }
 
     .approach-grid {
@@ -476,7 +476,7 @@
     }
 
     /* ── ABOUT ────────────────────────────────────────── */
-    #about { background: transparent; }
+    #about { background: transparent; padding-bottom: 2rem; }
 
     .about-grid {
       display: grid;
@@ -551,7 +551,7 @@
 
     .patent-desc {
       font-size: 0.82rem;
-      color: rgba(255,255,255,0.5);
+      color: rgba(255,255,255,0.7);
       line-height: 1.6;
       font-weight: 300;
     }
