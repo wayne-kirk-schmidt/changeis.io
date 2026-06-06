@@ -715,6 +715,7 @@
       border-radius: 8px;
       transition: background 0.2s, transform 0.15s;
       margin-top: auto;
+      margin-bottom: 0.5rem;
     }
 
     .btn-cal:hover { background: var(--blue); transform: translateY(-1px); }
