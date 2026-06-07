@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChangeIS — Where Do You Work?</title>
+  <meta name="description" content="Tell us about your world. Two clicks to a conversation with ChangeIS.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,600;0,9..40,800;1,9..40,300&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #0F2D52;
+      --blue:   #1A5F9C;
+      --steel:  #2E7BC4;
+      --sky:    #7eb8f7;
+      --mist:   #D6E8F7;
+      --bg:     #0A1628;
+      --mid:    #4A5568;
+      --light:  #8FA8C0;
+      --white:  #FFFFFF;
+      --border: rgba(184,212,238,0.12);
+      --frost:  rgba(26,95,156,0.15);
+      --mono:   'IBM Plex Mono', monospace;
+      --sans:   'DM Sans', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      background-image:
+        radial-gradient(ellipse at 20% 50%, rgba(26,95,156,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(46,123,196,0.1) 0%, transparent 50%);
+      color: var(--white);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── STARS ── */
+    #stars {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 3rem; height: 60px;
+      background: rgba(10,22,40,0.97);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(8px);
+    }
+
+    .nav-logo {
+      font-family: var(--sans);
+      font-size: 1.2rem; font-weight: 800;
+      color: var(--white); text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+    .nav-logo span { color: var(--sky); }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.5); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--sky); }
+
+    /* ── MAIN ── */
+    main {
+      position: relative; z-index: 1;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 7rem 2rem 4rem;
+    }
+
+    /* ── STEP INDICATOR ── */
+    .steps {
+      display: flex; align-items: center; gap: 8px;
+      margin-bottom: 3rem;
+    }
+    .step-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: rgba(126,184,247,0.25);
+      transition: background 0.3s;
+    }
+    .step-dot.active { background: var(--sky); }
+    .step-dot.done { background: rgba(126,184,247,0.5); }
+    .step-line {
+      width: 32px; height: 1px;
+      background: rgba(126,184,247,0.15);
+    }
+
+    /* ── PANEL ── */
+    .panel {
+      width: 100%; max-width: 860px;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+    .panel.hidden {
+      opacity: 0; transform: translateY(16px); pointer-events: none;
+      position: absolute;
+    }
+
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 0.65rem; font-weight: 500;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--sky); opacity: 0.7;
+      margin-bottom: 1rem; text-align: center;
+    }
+
+    .panel-title {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 800; line-height: 1.1;
+      letter-spacing: -1px; color: var(--white);
+      text-align: center; margin-bottom: 0.75rem;
+    }
+    .panel-title em {
+      font-style: italic; color: var(--sky); font-weight: 300;
+    }
+
+    .panel-sub {
+      font-size: 1rem; color: rgba(255,255,255,0.45);
+      text-align: center; margin-bottom: 2.5rem;
+      font-weight: 300; line-height: 1.6;
+    }
+
+    /* ── INDUSTRY GRID ── */
+    .industry-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 1rem;
+    }
+
+    .industry-btn {
+      background: var(--frost);
+      border: 1px solid rgba(126,184,247,0.15);
+      border-radius: 6px;
+      padding: 14px 12px;
+      color: rgba(255,255,255,0.75);
+      font-family: var(--sans);
+      font-size: 0.85rem; font-weight: 600;
+      text-align: center; cursor: pointer;
+      transition: all 0.2s; line-height: 1.3;
+    }
+    .industry-btn:hover {
+      background: rgba(46,123,196,0.25);
+      border-color: rgba(126,184,247,0.4);
+      color: var(--white);
+      transform: translateY(-1px);
+    }
+    .industry-btn.selected {
+      background: rgba(46,123,196,0.35);
+      border-color: var(--sky);
+      color: var(--white);
+    }
+
+    .other-btn {
+      grid-column: span 2;
+      background: transparent;
+      border: 1px dashed rgba(126,184,247,0.2);
+      border-radius: 6px;
+      padding: 14px 12px;
+      color: rgba(255,255,255,0.35);
+      font-family: var(--mono);
+      font-size: 0.7rem; font-weight: 400;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      text-align: center; cursor: pointer;
+      transition: all 0.2s;
+    }
+    .other-btn:hover {
+      border-color: rgba(126,184,247,0.4);
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* ── PRODUCT GRID ── */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 1rem;
+    }
+
+    .product-btn {
+      background: var(--frost);
+      border: 1px solid rgba(126,184,247,0.15);
+      border-radius: 8px;
+      padding: 18px 16px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s;
+    }
+    .product-btn:hover {
+      background: rgba(46,123,196,0.25);
+      border-color: rgba(126,184,247,0.4);
+      transform: translateY(-2px);
+    }
+    .product-btn.selected {
+      background: rgba(46,123,196,0.35);
+      border-color: var(--sky);
+    }
+
+    .product-name {
+      font-size: 1rem; font-weight: 800;
+      color: var(--white); margin-bottom: 3px;
+      letter-spacing: -0.3px;
+    }
+    .product-domain {
+      font-family: var(--mono);
+      font-size: 0.6rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--sky); opacity: 0.7;
+      margin-bottom: 8px;
+    }
+    .product-whatif {
+      font-size: 0.8rem; color: rgba(255,255,255,0.5);
+      font-weight: 300; line-height: 1.5;
+      font-style: italic;
+    }
+
+    /* ── CTA PANEL ── */
+    .cta-panel {
+      width: 100%; max-width: 620px;
+      margin: 0 auto; text-align: center;
+    }
+
+    .cta-context {
+      display: flex; align-items: center; justify-content: center;
+      gap: 10px; margin-bottom: 2rem; flex-wrap: wrap;
+    }
+    .cta-tag {
+      font-family: var(--mono);
+      font-size: 0.65rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 5px 12px;
+      background: rgba(46,123,196,0.2);
+      border: 1px solid rgba(126,184,247,0.3);
+      border-radius: 20px; color: var(--sky);
+    }
+    .cta-divider {
+      font-size: 0.7rem; color: rgba(255,255,255,0.2);
+    }
+
+    .cta-headline {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 800; line-height: 1.15;
+      letter-spacing: -0.5px; color: var(--white);
+      margin-bottom: 1rem;
+    }
+    .cta-headline em { font-style: italic; color: var(--sky); font-weight: 300; }
+
+    .cta-sub {
+      font-size: 0.95rem; color: rgba(255,255,255,0.45);
+      font-weight: 300; line-height: 1.7;
+      margin-bottom: 2.5rem;
+    }
+
+    .cta-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 0.9rem 2rem;
+      background: var(--steel); color: var(--white);
+      font-family: var(--sans);
+      font-size: 0.82rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      text-decoration: none;
+      border: 2px solid var(--steel);
+      transition: all 0.25s; border-radius: 0;
+    }
+    .btn-primary:hover {
+      background: transparent; color: var(--sky);
+      border-color: var(--sky);
+    }
+
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 0.9rem 2rem;
+      background: transparent;
+      color: rgba(214,232,247,0.7);
+      font-family: var(--sans);
+      font-size: 0.82rem; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      text-decoration: none;
+      border: 2px solid rgba(214,232,247,0.2);
+      transition: all 0.25s; border-radius: 0;
+    }
+    .btn-ghost:hover {
+      border-color: rgba(214,232,247,0.5);
+      color: var(--white);
+    }
+
+    .cta-restart {
+      margin-top: 2rem;
+      font-family: var(--mono);
+      font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.25); cursor: pointer;
+      background: none; border: none;
+      transition: color 0.2s;
+    }
+    .cta-restart:hover { color: rgba(255,255,255,0.5); }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative; z-index: 1;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.5rem 3rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.75rem; color: rgba(255,255,255,0.25);
+    }
+    footer a { color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s; }
+    footer a:hover { color: var(--sky); }
+    .footer-links { display: flex; gap: 1.5rem; }
+
+    @media (max-width: 700px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links { display: none; }
+      .industry-grid { grid-template-columns: repeat(2, 1fr); }
+      .product-grid { grid-template-columns: 1fr 1fr; }
+      footer { padding: 1.5rem; flex-direction: column; gap: 0.75rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="stars"></div>
+
+<nav>
+  <a class="nav-logo" href="https://changeis.io"><span>Change</span>IS</a>
+  <ul class="nav-links">
+    <li><a href="https://changeis.io#domains">Domains</a></li>
+    <li><a href="https://changeis.io#approach">Approach</a></li>
+    <li><a href="https://casestudies.changeis.io">Case Studies</a></li>
+    <li><a href="mailto:embrace@changeis.io">Engage</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <!-- STEP INDICATOR -->
+  <div class="steps">
+    <div class="step-dot active" id="dot-1"></div>
+    <div class="step-line"></div>
+    <div class="step-dot" id="dot-2"></div>
+    <div class="step-line"></div>
+    <div class="step-dot" id="dot-3"></div>
+  </div>
+
+  <!-- PANEL 1: INDUSTRY -->
+  <div class="panel" id="panel-1">
+    <p class="eyebrow">Step 1 of 2</p>
+    <h1 class="panel-title">What is your <em>world?</em></h1>
+    <p class="panel-sub">Pick the world that fits yours.</p>
+
+    <div class="industry-grid">
+      <button class="industry-btn" onclick="selectIndustry('Financial Services')">Financial Services</button>
+      <button class="industry-btn" onclick="selectIndustry('Global Banking')">Global Banking</button>
+      <button class="industry-btn" onclick="selectIndustry('Fintech')">Fintech</button>
+      <button class="industry-btn" onclick="selectIndustry('Insurance')">Insurance</button>
+      <button class="industry-btn" onclick="selectIndustry('Healthcare')">Healthcare</button>
+      <button class="industry-btn" onclick="selectIndustry('Technology')">Technology</button>
+      <button class="industry-btn" onclick="selectIndustry('MSP / MSSP')">MSP / MSSP</button>
+      <button class="industry-btn" onclick="selectIndustry('Manufacturing')">Manufacturing</button>
+      <button class="industry-btn" onclick="selectIndustry('Energy & Utilities')">Energy &amp; Utilities</button>
+      <button class="industry-btn" onclick="selectIndustry('Telecommunications')">Telecommunications</button>
+      <button class="industry-btn" onclick="selectIndustry('Retail & Commerce')">Retail &amp; Commerce</button>
+      <button class="industry-btn" onclick="selectIndustry('Logistics')">Logistics</button>
+      <button class="industry-btn" onclick="selectIndustry('Government & Public Sector')">Government &amp; Public</button>
+      <button class="industry-btn" onclick="selectIndustry('Education')">Education</button>
+      <button class="industry-btn" onclick="selectIndustry('Professional Services')">Professional Services</button>
+      <button class="other-btn" onclick="selectIndustry('Something else')">Something else — tell us about your world →</button>
+    </div>
+  </div>
+
+  <!-- PANEL 2: PRODUCT -->
+  <div class="panel hidden" id="panel-2">
+    <p class="eyebrow">Step 2 of 2</p>
+    <h2 class="panel-title">What is your Goal? <em>What if...</em></h2>
+    <p class="panel-sub">Pick the possibility that resonates — the one that made you nod.</p>
+
+    <div class="product-grid">
+      <button class="product-btn" onclick="selectProduct('Nexa', 'DevOps', 'operations could share learning across the entire firm')">
+        <div class="product-name">Nexa</div>
+        <div class="product-domain">DevOps</div>
+        <div class="product-whatif">"What if operations could share learning across the entire firm?"</div>
+      </button>
+      <button class="product-btn" onclick="selectProduct('Relay', 'Change Readiness', 'deployments had no surprises. Ever')">
+        <div class="product-name">Relay</div>
+        <div class="product-domain">Change Readiness</div>
+        <div class="product-whatif">"What if deployments had no surprises. Ever."</div>
+      </button>
+      <button class="product-btn" onclick="selectProduct('Maestro', 'Testing', 'testing made your team smarter with every run')">
+        <div class="product-name">Maestro</div>
+        <div class="product-domain">Testing</div>
+        <div class="product-whatif">"What if testing made your team smarter with every run?"</div>
+      </button>
+      <button class="product-btn" onclick="selectProduct('Pulse', 'Monitoring', 'your team always knew the true health of your systems')">
+        <div class="product-name">Pulse</div>
+        <div class="product-domain">Monitoring</div>
+        <div class="product-whatif">"What if your team always knew the true health of your systems?"</div>
+      </button>
+      <button class="product-btn" onclick="selectProduct('Vigil', 'Events', 'you could immediately determine which events actually matter')">
+        <div class="product-name">Vigil</div>
+        <div class="product-domain">Events</div>
+        <div class="product-whatif">"What if you could immediately determine which events actually matter?"</div>
+      </button>
+      <button class="product-btn" onclick="selectProduct('Haven', 'Security', 'your people became your strongest security asset')">
+        <div class="product-name">Haven</div>
+        <div class="product-domain">Security</div>
+        <div class="product-whatif">"What if your people became your strongest security asset?"</div>
+      </button>
+      <button class="product-btn" onclick="selectProduct('Weavr', 'Knowledge', 'institutional knowledge belonged to everyone, not just a few')">
+        <div class="product-name">Weavr</div>
+        <div class="product-domain">Knowledge</div>
+        <div class="product-whatif">"What if institutional knowledge belonged to everyone, not just a few?"</div>
+      </button>
+      <button class="product-btn" onclick="selectProduct('Fluid', 'Purpose Engineering', 'everything your team does was organized around what you\'re actually trying to achieve')">
+        <div class="product-name">Fluid</div>
+        <div class="product-domain">Purpose Engineering</div>
+        <div class="product-whatif">"What if everything your team does was organized around what you're actually trying to achieve?"</div>
+      </button>
+      <button class="product-btn" onclick="selectProduct('Galen', 'Advisory', 'you had trusted strategic guidance at the speed of the decision')">
+        <div class="product-name">Galen</div>
+        <div class="product-domain">Advisory</div>
+        <div class="product-whatif">"What if you had trusted strategic guidance at the speed of the decision?"</div>
+      </button>
+      <button class="product-btn" onclick="selectProduct('Glass', 'Personal Productivity', 'your email, drive, calendar, and other resources organized around your need')">
+        <div class="product-name">Glass</div>
+        <div class="product-domain">Personal Productivity</div>
+        <div class="product-whatif">"What if your email, drive, and calendar organized around your need — not your labels?"</div>
+      </button>
+      <button class="product-btn" onclick="selectProduct('CareerCraft', 'Career Strategy', 'you conducted your search your way, building the best campaign for the best opportunity')">
+        <div class="product-name">CareerCraft</div>
+        <div class="product-domain">Career Strategy</div>
+        <div class="product-whatif">"What if you conducted your search your way, building the best you for the best opportunity?"</div>
+      </button>
+      <button class="other-btn" style="border-radius:8px; padding:18px 16px;" onclick="selectProduct('Something else', '', 'you could describe exactly what you need')">
+        Something else — tell us what you're trying to achieve →
+      </button>
+    </div>
+  </div>
+
+  <!-- PANEL 3: CTA -->
+  <div class="panel hidden" id="panel-3">
+    <div class="cta-panel">
+      <p class="eyebrow">Let's talk</p>
+      <div class="cta-context">
+        <span class="cta-tag" id="cta-industry-tag"></span>
+        <span class="cta-divider">+</span>
+        <span class="cta-tag" id="cta-product-tag"></span>
+      </div>
+      <h2 class="cta-headline" id="cta-headline"></h2>
+      <p class="cta-sub" id="cta-sub"></p>
+      <div class="cta-actions">
+        <a class="btn-primary" id="cta-email" href="#">Email Wayne →</a>
+        <a class="btn-ghost" href="https://casestudies.changeis.io" target="_blank">View Case Studies</a>
+      </div>
+      <button class="cta-restart" onclick="restart()">← Start over</button>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <span>© 2026 ChangeIS K.K.</span>
+  <div class="footer-links">
+    <a href="https://changeis.io">changeis.io</a>
+    <a href="https://casestudies.changeis.io">Case Studies</a>
+    <a href="https://waynekirkschmidt.me">Wayne Kirk Schmidt</a>
+    <a href="mailto:embrace@changeis.io">embrace@changeis.io</a>
+  </div>
+</footer>
+
+<script>
+  // Stars
+  const starsEl = document.getElementById('stars');
+  for (let i = 0; i < 120; i++) {
+    const s = document.createElement('div');
+    const size = Math.random() < 0.7 ? 1 : Math.random() < 0.8 ? 1.5 : 2;
+    s.style.cssText = `position:absolute;border-radius:50%;background:rgba(255,255,255,${0.15+Math.random()*0.5});width:${size}px;height:${size}px;left:${Math.random()*100}%;top:${Math.random()*100}%;`;
+    starsEl.appendChild(s);
+  }
+
+  // State
+  let selectedIndustry = '';
+  let selectedProduct = '';
+  let selectedDomain = '';
+  let selectedWhatif = '';
+
+  function showPanel(id) {
+    ['panel-1','panel-2','panel-3'].forEach(p => {
+      const el = document.getElementById(p);
+      if (p === id) {
+        el.classList.remove('hidden');
+      } else {
+        el.classList.add('hidden');
+      }
+    });
+    // Update dots
+    const step = parseInt(id.split('-')[1]);
+    document.getElementById('dot-1').className = 'step-dot' + (step >= 1 ? (step > 1 ? ' done' : ' active') : '');
+    document.getElementById('dot-2').className = 'step-dot' + (step >= 2 ? (step > 2 ? ' done' : ' active') : '');
+    document.getElementById('dot-3').className = 'step-dot' + (step >= 3 ? ' active' : '');
+  }
+
+  function selectIndustry(industry) {
+    selectedIndustry = industry;
+    // Brief visual feedback
+    event.target.classList.add('selected');
+    setTimeout(() => showPanel('panel-2'), 280);
+  }
+
+  function selectProduct(product, domain, whatif) {
+    selectedProduct = product;
+    selectedDomain = domain;
+    selectedWhatif = whatif;
+    buildCTA();
+    setTimeout(() => showPanel('panel-3'), 280);
+  }
+
+  function buildCTA() {
+    document.getElementById('cta-industry-tag').textContent = selectedIndustry;
+    document.getElementById('cta-product-tag').textContent = selectedProduct !== 'Something else' ? selectedProduct + ' · ' + selectedDomain : 'Open conversation';
+
+    const isSomethingElse = selectedProduct === 'Something else' || selectedIndustry === 'Something else';
+
+    if (isSomethingElse) {
+      document.getElementById('cta-headline').innerHTML = "Let's figure out <em>what's possible.</em>";
+      document.getElementById('cta-sub').textContent = "Not every challenge fits a named solution. Tell Wayne what you're dealing with — he's built platforms for problems that didn't have names yet.";
+    } else {
+      document.getElementById('cta-headline').innerHTML = 'What if ' + selectedWhatif + '?';
+      document.getElementById('cta-sub').textContent = 'Wayne has built this — or something very close to it — for ' + selectedIndustry + ' organisations. Let\'s talk about what that looks like for you.';
+    }
+
+    const subject = isSomethingElse
+      ? 'ChangeIS — ' + selectedIndustry + ' · Open conversation'
+      : 'ChangeIS — ' + selectedIndustry + ' · ' + selectedProduct + ' (' + selectedDomain + ')';
+
+    const body = isSomethingElse
+      ? "Hi Wayne,\n\nI work in " + selectedIndustry + " and I'm trying to figure out what's possible.\n\nHere's what I'm dealing with:\n\n[your message here]\n\n"
+      : "Hi Wayne,\n\nI work in " + selectedIndustry + " and I'm interested in " + selectedProduct + " (" + selectedDomain + ").\n\nSpecifically, I've been thinking: what if " + selectedWhatif + "?\n\nI'd love to talk about what that looks like for us.\n\n";
+
+    document.getElementById('cta-email').href = 'mailto:embrace@changeis.io?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+  }
+
+  function restart() {
+    selectedIndustry = '';
+    selectedProduct = '';
+    document.querySelectorAll('.industry-btn, .product-btn').forEach(b => b.classList.remove('selected'));
+    showPanel('panel-1');
+  }
+</script>
+
+</body>
+</html>
