@@ -10,32 +10,49 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles.css"/>
   <style>
-    .patent-links { display: flex; gap: 1rem; margin-top: 0.5rem; flex-wrap: wrap; }
-    .patent-links a { color: var(--sky, #7eb8f7); font-size: 0.82rem; font-weight: 600; text-decoration: none; border: 1px solid var(--sky, #7eb8f7); border-radius: 4px; padding: 0.15rem 0.6rem; transition: background 0.2s; }
-    .patent-links a:hover { background: rgba(126,184,247,0.15); }
-    .patent-link-placeholder { color: rgba(255,255,255,0.25); font-size: 0.82rem; font-weight: 600; border: 1px solid rgba(255,255,255,0.15); border-radius: 4px; padding: 0.15rem 0.6rem; }
-    .page-hero { padding: 7rem 0 3rem; text-align: center; }
-    .page-hero .section-eyebrow { margin-bottom: 1rem; }
+    .page-wrap { padding-top: 60px; }
+    .page-hero { padding: 5rem 0 3rem; text-align: center; }
+    .page-hero .section-intro { max-width: 100%; }
+    .product-strip { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin: 2rem 0 1rem; }
+    .product-strip a { color: var(--sky, #7eb8f7); font-size: 0.8rem; font-weight: 600; text-decoration: none; border: 1px solid rgba(126,184,247,0.3); border-radius: 4px; padding: 0.2rem 0.7rem; transition: background 0.2s; }
+    .product-strip a:hover { background: rgba(126,184,247,0.1); }
+    .thin-card { background: rgba(26,95,156,0.12); border: 1px solid rgba(184,212,238,0.12); border-radius: 8px; padding: 1.5rem 2rem; margin-bottom: 1rem; }
+    .thin-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.35rem; color: #fff; }
+    .thin-card .card-domain { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sky, #7eb8f7); opacity: 0.7; margin-bottom: 0.5rem; }
+    .thin-card .card-whatif { font-size: 0.9rem; font-style: italic; color: rgba(255,255,255,0.6); margin-bottom: 0.75rem; line-height: 1.5; }
+    .thin-card .card-links { display: flex; gap: 0.75rem; }
+    .thin-card .card-links a { color: var(--sky, #7eb8f7); font-size: 0.78rem; font-weight: 600; text-decoration: none; border: 1px solid rgba(126,184,247,0.35); border-radius: 4px; padding: 0.15rem 0.6rem; transition: background 0.2s; }
+    .thin-card .card-links a:hover { background: rgba(126,184,247,0.15); }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .page-cta { text-align: center; padding: 3rem 0 2rem; border-top: 1px solid rgba(184,212,238,0.1); margin-top: 2rem; }
+    .page-cta .btn-primary { margin-right: 1rem; }
+    .gallery-block { text-align: center; padding: 3rem 0; }
+    .gallery-btn { display: inline-block; background: #244a86; color: #fff; padding: 1rem 2.5rem; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 1rem; transition: background 0.2s; }
+    .gallery-btn:hover { background: #1a5f9c; }
+    .gallery-copy { font-size: 1rem; color: rgba(255,255,255,0.55); max-width: 680px; margin: 0 auto 2rem; line-height: 1.7; }
+    .gallery-copy-after { font-size: 0.9rem; color: rgba(255,255,255,0.4); max-width: 600px; margin: 2rem auto 0; line-height: 1.7; }
+    @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
+<div class="page-wrap">
   <nav>
     <a class="nav-logo" href="/index.html"><span>Change</span>IS</a>
     <ul class="nav-links">
       <li><a href="/domains.html">Domains</a></li>
       <li><a href="/approach.html">Approach</a></li>
-      <li><a href="/proof.html">Proof</a></li>
-      <li><a href="/about.html">About</a></li>
-      <li><a href="/products.html">Products</a></li>
-      <li><a href="/services.html">Services</a></li>
-      <li><a href="/explore.html">Explore</a></li>
-      <li><a href="/engage.html">Engage</a></li>
+      <li><a href="/casestudies.html">Case Studies</a></li>
+      <li><a href="/products.html">Our Products</a></li>
+      <li><a href="/services.html">Our Services</a></li>
+      <li><a href="/explore.html">Find Your Solution</a></li>
+      <li><a href="/engage.html">Get in Touch</a></li>
     </ul>
   </nav>
+
   <div class="page-hero section-inner">
     <p class="section-eyebrow">How We Work</p>
     <h1 class="section-title">Triage. Stabilize.<br>Remediate. Recover. Prevent.</h1>
-    <p class="section-intro">Every engagement follows the same disciplined sequence — because sustainable platforms aren't built by skipping steps.</p>
+    <p class="section-intro">Every engagement follows the same disciplined sequence — because sustainable platforms are not built by skipping steps.</p>
   </div>
   <section>
     <div class="section-inner">
@@ -56,16 +73,17 @@
           <p class="approach-desc">Design for long-term stability. Reduce future risk and recurrence. Leave the team knowing how to sustain and extend what was built.</p>
         </div>
       </div>
-      <div style="text-align:center;margin-top:3rem;">
-        <a href="/proof.html" class="btn-primary">See the Proof →</a>
-        <a href="/engage.html" class="btn-ghost" style="margin-left:1rem;">Get in Touch</a>
+      <div class="page-cta">
+        <a href="/casestudies.html" class="btn-primary">See Case Studies</a>
+        <a href="/engage.html" class="btn-ghost">Get in Touch</a>
       </div>
     </div>
   </section>
   <footer>
     <span class="footer-logo">ChangeIS</span>
-    <span class="footer-copy">© 2026 ChangeIS · Wayne Kirk Schmidt · Boston · Tokyo · Global</span>
+    <span class="footer-copy">2026 ChangeIS · Wayne Kirk Schmidt · Boston · Tokyo · Global</span>
   </footer>
+</div>
   <script>
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
