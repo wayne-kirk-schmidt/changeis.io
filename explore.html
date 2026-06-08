@@ -16,7 +16,7 @@
       --navy:   #0F2D52;
       --blue:   #1A5F9C;
       --steel:  #2E7BC4;
-      --sky:    #7eb8f7;
+      --sky:    #D6E8F7;
       --mist:   #D6E8F7;
       --bg:     #0A1628;
       --white:  #FFFFFF;
@@ -33,23 +33,7 @@
     
 
     /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 3rem; height: 60px;
-      background: rgba(10,22,40,0.97);
-      border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(8px);
-    }
-    .nav-logo { font-size: 1.2rem; font-weight: 800; color: var(--white); text-decoration: none; }
-    .nav-logo span { color: var(--sky); }
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a {
-      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em;
-      text-transform: uppercase; color: rgba(255,255,255,0.5);
-      text-decoration: none; transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--sky); }
+
 
     /* ── STEP INDICATOR ── */
     .step-bar {
@@ -507,7 +491,7 @@
       </div>
 
       <div class="nav-btns">
-        <button class="btn-next" id="next-1" onclick="goToPanel2()">Next — What is your goal? →</button>
+        <button class="btn-next" id="next-1" onclick="goToPanel2()">Next — What is your goal?</button>
       </div>
     </div>
 
@@ -553,7 +537,7 @@
 
       <div class="nav-btns">
         <button class="btn-back" onclick="goToPanel1()">← Back</button>
-        <button class="btn-next" id="next-2" onclick="goToPanel3()">Get in Touch →</button>
+        <button class="btn-next" id="next-2" onclick="goToPanel3()">Get in Touch</button>
       </div>
     </div>
 
@@ -691,7 +675,7 @@
     <a href="/index.html">ChangeIS</a>
     <a href="/casestudies.html">Case Studies</a>
     <a href="https://waynekirkschmidt.me" target="_blank">Wayne Kirk Schmidt</a>
-    <a href="mailto:engage.html">Get in Touch</a>
+    <a href="/engage.html">Get in Touch</a>
   </div>
 </footer>
 
