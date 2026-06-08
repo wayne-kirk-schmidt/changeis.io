@@ -10,14 +10,29 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles.css"/>
   <style>
-    body { overflow: hidden; }
-    .hero { min-height: calc(100vh - 60px - 80px); display: flex; align-items: center; padding: 2rem 0 0; }
-    .metrics { height: 80px; }
-    .metric-value { font-size: 1.6rem; }
-    .metric-label { font-size: 0.72rem; }
-    .hero-eyebrow { margin-bottom: 0.5rem; }
-    .hero-title { margin-bottom: 0.6rem; }
-    .hero-sub { margin-bottom: 1.25rem; }
+    html, body { height: 100%; overflow: hidden; }
+    .hero {
+      height: calc(100vh - 60px - 72px);
+      display: flex; align-items: center;
+      padding: 0;
+    }
+    .hero-inner { padding-top: 0; }
+    .hero-eyebrow { margin-bottom: 0.4rem; font-size: 0.72rem; }
+    .hero-title { margin-bottom: 0.5rem; }
+    .hero-sub {
+      margin-bottom: 1rem;
+      white-space: nowrap;
+      font-size: 0.95rem;
+    }
+    .hero-actions { gap: 0.75rem; }
+    .metrics {
+      height: 72px;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+    }
+    .metric-value { font-size: 1.5rem; }
+    .metric-label { font-size: 0.68rem; }
+    footer { display: none; }
   </style>
 </head>
 <body>
