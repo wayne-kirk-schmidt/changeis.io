@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -21,24 +22,15 @@
       --white:  #FFFFFF;
       --border: rgba(184,212,238,0.12);
       --frost:  rgba(26,95,156,0.15);
-      --mono:   'IBM Plex Mono', monospace;
-      --sans:   'Inter', system-ui, sans-serif;
+      
+      
     }
 
     html { scroll-behavior: smooth; }
 
-    body {
-      font-family: 'Inter', system-ui, sans-serif;
-      background: var(--bg);
-      background-image:
-        radial-gradient(ellipse at 20% 50%, rgba(26,95,156,0.15) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 20%, rgba(46,123,196,0.1) 0%, transparent 50%);
-      color: var(--white);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
+    body { font-family: var(--sans); overflow-x: hidden; }
 
-    #stars { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+    
 
     /* ── NAV ── */
     nav {
@@ -475,9 +467,7 @@
 </head>
 <body>
 
-<div id="stars"></div>
-
-    <nav>
+<nav>
     <a class="nav-logo" href="/index.html"><span>Change</span>IS</a>
     <ul class="nav-links">
       <li><a href="/domains.html">Domains</a></li>
@@ -706,14 +696,7 @@
 </footer>
 
 <script>
-  // Stars
-  const starsEl = document.getElementById('stars');
-  for (let i = 0; i < 120; i++) {
-    const s = document.createElement('div');
-    const sz = Math.random() < 0.7 ? 1 : Math.random() < 0.8 ? 1.5 : 2;
-    s.style.cssText = `position:absolute;border-radius:50%;background:rgba(255,255,255,${0.15+Math.random()*0.5});width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;`;
-    starsEl.appendChild(s);
-  }
+  
 
   // State
   let state = { industry: '', product: '', domain: '', type: '', whatif: '', context1: '', context2: '' };
