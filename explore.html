@@ -637,7 +637,7 @@
       </div>
 
       <div class="success-msg" id="success-msg">
-        ✓ Sent. Wayne will be in touch shortly.<br>
+        ✓ Sent. We will be in touch shortly.<br>
         <span style="font-size:0.85rem; opacity:0.7;">Want to lock in a time while you're here?</span>
       </div>
 
@@ -663,7 +663,7 @@
         <a class="sel-btn" href="https://cal.com/waynekirkschmidt/changeis-60min" target="_blank">Explore our work — 60 min</a>
       </div>
 
-      <button class="cta-restart" onclick="restart()">← Start over</button>
+      <button class="btn-ghost" style="margin-top:1.5rem;cursor:pointer;border:none;" onclick="restart()">← Start over</button>
     </div>
   </div>
 
@@ -808,13 +808,13 @@
 
     if (!isSomethingElse) {
       msg += 'I\'m interested in ' + state.product + ' (' + state.domain + ').\n';
-      msg += 'Specifically — what if ' + state.whatif + '?\n\n';
+      msg += 'Specifically: what if ' + state.whatif + '?\n\n';
     } else {
       msg += 'I\'m trying to figure out what\'s possible.\n\n';
     }
 
     if (state.context2) msg += state.context2 + '\n\n';
-    msg += "I'd love to explore what this looks like for us.\n\n[Your name]";
+    msg += "I'd love to explore what this looks like for us.\n\n";
 
     document.getElementById('cta-message-text').textContent = msg;
     document.getElementById('form-subject').value = subject;
