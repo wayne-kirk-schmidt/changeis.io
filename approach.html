@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChangeIS — Approach</title>
+  <meta name="description" content="Triage. Stabilize. Remediate. Recover. Prevent.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css"/>
+  <style>
+    .patent-links { display: flex; gap: 1rem; margin-top: 0.5rem; flex-wrap: wrap; }
+    .patent-links a { color: var(--sky, #7eb8f7); font-size: 0.82rem; font-weight: 600; text-decoration: none; border: 1px solid var(--sky, #7eb8f7); border-radius: 4px; padding: 0.15rem 0.6rem; transition: background 0.2s; }
+    .patent-links a:hover { background: rgba(126,184,247,0.15); }
+    .patent-link-placeholder { color: rgba(255,255,255,0.25); font-size: 0.82rem; font-weight: 600; border: 1px solid rgba(255,255,255,0.15); border-radius: 4px; padding: 0.15rem 0.6rem; }
+    .page-hero { padding: 7rem 0 3rem; text-align: center; }
+    .page-hero .section-eyebrow { margin-bottom: 1rem; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a class="nav-logo" href="/index.html"><span>Change</span>IS</a>
+    <ul class="nav-links">
+      <li><a href="/domains.html">Domains</a></li>
+      <li><a href="/approach.html">Approach</a></li>
+      <li><a href="/proof.html">Proof</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/products.html">Products</a></li>
+      <li><a href="/services.html">Services</a></li>
+      <li><a href="/explore.html">Explore</a></li>
+      <li><a href="/engage.html">Engage</a></li>
+    </ul>
+  </nav>
+  <div class="page-hero section-inner">
+    <p class="section-eyebrow">How We Work</p>
+    <h1 class="section-title">Triage. Stabilize.<br>Remediate. Recover. Prevent.</h1>
+    <p class="section-intro">Every engagement follows the same disciplined sequence — because sustainable platforms aren't built by skipping steps.</p>
+  </div>
+  <section>
+    <div class="section-inner">
+      <div class="approach-grid reveal">
+        <div class="approach-card">
+          <div class="approach-num">01</div>
+          <div class="approach-title">Triage</div>
+          <p class="approach-desc">Prioritize under uncertainty. Identify the 20% of work that eliminates 80% of the risk. Understand the system before touching it.</p>
+        </div>
+        <div class="approach-card">
+          <div class="approach-num">02</div>
+          <div class="approach-title">Stabilize &amp; Fix</div>
+          <p class="approach-desc">Contain the risk. Execute on what matters now. Build confidence through fast, visible, reversible improvements.</p>
+        </div>
+        <div class="approach-card">
+          <div class="approach-num">03</div>
+          <div class="approach-title">Recover &amp; Prevent</div>
+          <p class="approach-desc">Design for long-term stability. Reduce future risk and recurrence. Leave the team knowing how to sustain and extend what was built.</p>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:3rem;">
+        <a href="/proof.html" class="btn-primary">See the Proof →</a>
+        <a href="/engage.html" class="btn-ghost" style="margin-left:1rem;">Get in Touch</a>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <span class="footer-logo">ChangeIS</span>
+    <span class="footer-copy">© 2026 ChangeIS · Wayne Kirk Schmidt · Boston · Tokyo · Global</span>
+  </footer>
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChangeIS — Services</title>
+  <meta name="description" content="Bespoke engagements. Advisory. Architecture.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css"/>
+  <style>
+    .patent-links { display: flex; gap: 1rem; margin-top: 0.5rem; flex-wrap: wrap; }
+    .patent-links a { color: var(--sky, #7eb8f7); font-size: 0.82rem; font-weight: 600; text-decoration: none; border: 1px solid var(--sky, #7eb8f7); border-radius: 4px; padding: 0.15rem 0.6rem; transition: background 0.2s; }
+    .patent-links a:hover { background: rgba(126,184,247,0.15); }
+    .patent-link-placeholder { color: rgba(255,255,255,0.25); font-size: 0.82rem; font-weight: 600; border: 1px solid rgba(255,255,255,0.15); border-radius: 4px; padding: 0.15rem 0.6rem; }
+    .page-hero { padding: 7rem 0 3rem; text-align: center; }
+    .page-hero .section-eyebrow { margin-bottom: 1rem; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a class="nav-logo" href="/index.html"><span>Change</span>IS</a>
+    <ul class="nav-links">
+      <li><a href="/domains.html">Domains</a></li>
+      <li><a href="/approach.html">Approach</a></li>
+      <li><a href="/proof.html">Proof</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/products.html">Products</a></li>
+      <li><a href="/services.html">Services</a></li>
+      <li><a href="/explore.html">Explore</a></li>
+      <li><a href="/engage.html">Engage</a></li>
+    </ul>
+  </nav>
+  <div class="page-hero section-inner">
+    <p class="section-eyebrow">Services</p>
+    <h1 class="section-title">When the problem<br><em style="font-style:italic;color:var(--sky)">doesn't have a name yet.</em></h1>
+    <p class="section-intro">Not every challenge fits a named product. ChangeIS delivers bespoke architecture, integration, and advisory engagements — built around your specific situation.</p>
+  </div>
+  <section>
+    <div class="section-inner">
+      <div class="domains-grid reveal">
+
+        <div class="domain-card">
+          <img src="https://wayne-kirk-schmidt.github.io/changeis-explainer-videos/Galen/ChangeIS.Galen.png" alt="Galen" style="height:1.5em;margin-bottom:0.5rem;">
+          <h3 class="domain-name">Galen — Advisory</h3>
+          <p class="domain-desc"><em>"What if you had trusted strategic guidance at the speed of the decision?"</em><br><br>Advisory wisdom that grows with you. Capturing decisions, context, and rationale so your guidance compounds over time. Fractional CTO, architecture review, strategic direction.</p>
+          <div class="patent-links">
+            <a href="https://wayne-kirk-schmidt.github.io/changeis-explainer-videos/Galen/ChangeIS.Galen.pdf" target="_blank">PDF</a>
+            <a href="https://wayne-kirk-schmidt.github.io/changeis-explainer-videos/Galen/ChangeIS.Galen.Video.mp4" target="_blank">Video</a>
+          </div>
+        </div>
+
+        <div class="domain-card">
+          <h3 class="domain-name">Bespoke Engagements</h3>
+          <p class="domain-desc">Platform builds, system integrations, architecture reviews, and technology transformations — delivered as end-to-end engagements. Every system designed to outlast the engagement.</p>
+          <div class="domain-tags">
+            <span class="tag">MORPHOS</span><span class="tag">Production Perimeter</span><span class="tag">NXT RAW</span><span class="tag">BEACON</span>
+          </div>
+        </div>
+
+        <div class="domain-card">
+          <h3 class="domain-name">Something Else</h3>
+          <p class="domain-desc">Wayne has built platforms for problems that didn't have names yet. If you can describe what's broken or what's possible, that's enough to start a conversation.</p>
+          <div style="margin-top:1.5rem;">
+            <a href="/engage.html" class="btn-primary" style="font-size:0.85rem;">Get in Touch →</a>
+          </div>
+        </div>
+
+      </div>
+      <div style="text-align:center;margin-top:3rem;">
+        <a href="/explore.html" class="btn-primary">Find Your Solution →</a>
+        <a href="/engage.html" class="btn-ghost" style="margin-left:1rem;">Get in Touch</a>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <span class="footer-logo">ChangeIS</span>
+    <span class="footer-copy">© 2026 ChangeIS · Wayne Kirk Schmidt · Boston · Tokyo · Global</span>
+  </footer>
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

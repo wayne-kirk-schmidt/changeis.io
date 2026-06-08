@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChangeIS — Engage</title>
+  <meta name="description" content="Start a conversation with ChangeIS.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css"/>
+  <style>
+    .patent-links { display: flex; gap: 1rem; margin-top: 0.5rem; flex-wrap: wrap; }
+    .patent-links a { color: var(--sky, #7eb8f7); font-size: 0.82rem; font-weight: 600; text-decoration: none; border: 1px solid var(--sky, #7eb8f7); border-radius: 4px; padding: 0.15rem 0.6rem; transition: background 0.2s; }
+    .patent-links a:hover { background: rgba(126,184,247,0.15); }
+    .patent-link-placeholder { color: rgba(255,255,255,0.25); font-size: 0.82rem; font-weight: 600; border: 1px solid rgba(255,255,255,0.15); border-radius: 4px; padding: 0.15rem 0.6rem; }
+    .page-hero { padding: 7rem 0 3rem; text-align: center; }
+    .page-hero .section-eyebrow { margin-bottom: 1rem; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a class="nav-logo" href="/index.html"><span>Change</span>IS</a>
+    <ul class="nav-links">
+      <li><a href="/domains.html">Domains</a></li>
+      <li><a href="/approach.html">Approach</a></li>
+      <li><a href="/proof.html">Proof</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/products.html">Products</a></li>
+      <li><a href="/services.html">Services</a></li>
+      <li><a href="/explore.html">Explore</a></li>
+      <li><a href="/engage.html">Engage</a></li>
+    </ul>
+  </nav>
+  <section id="contact" style="padding-top:5rem;">
+    <div class="section-inner">
+      <p class="section-eyebrow">Engage</p>
+      <p class="contact-sub">The best architecture conversations start with a simple question.</p>
+      <h1 class="section-title">Let's start with<br><em style="font-style:italic; color:var(--sky);">What if…?</em></h1>
+      <ul class="contact-questions">
+        <li>What if your systems returned time instead of consuming it?</li>
+        <li>What if your platforms adapted gracefully to constant change?</li>
+        <li>What if your technology amplified your people?</li>
+      </ul>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <p class="contact-card-label">Send a message</p>
+          <p class="contact-card-desc">Know what you want to talk about? Reach out directly.</p>
+          <form id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="c140c97c-44a9-4f89-af37-e5e9e30835a1">
+            <input type="hidden" name="botcheck" value="" style="display:none;">
+            <input type="hidden" name="subject" value="New message from changeis.io/engage">
+            <input type="hidden" name="redirect" value="https://changeis.io?sent=true">
+            <div class="form-group"><input type="text" name="name" placeholder="Your name" required class="form-input"></div>
+            <div class="form-group"><input type="text" name="company" placeholder="Your company" class="form-input"></div>
+            <div class="form-group"><input type="email" name="email" placeholder="Your email" required class="form-input"></div>
+            <div class="form-group">
+              <select name="topic" class="form-input form-select">
+                <option value="" disabled selected>What brought you here?</option>
+                <option value="Products">Products</option>
+                <option value="Services">Services</option>
+                <option value="Advisory">Advisory</option>
+                <option value="Just exploring">Just exploring</option>
+              </select>
+            </div>
+            <div class="form-group"><textarea name="message" placeholder="Your message (optional)" class="form-input" style="min-height:100px;resize:vertical;"></textarea></div>
+            <button type="submit" class="btn-primary form-submit">Send Message</button>
+          </form>
+        </div>
+        <div class="contact-divider"><span>or</span></div>
+        <div class="contact-card contact-card-cal" style="display:flex;flex-direction:column;gap:0.5rem;">
+          <p class="contact-card-label">Book a call</p>
+          <p class="contact-card-desc">Want to speak with someone? Pick a time, and let's get into it. No preparation needed.</p>
+          <a href="https://cal.com/waynekirkschmidt/changeis-15min" target="_blank" class="btn-cal">Explore our fit — 15 min</a>
+          <a href="https://cal.com/waynekirkschmidt/changeis-60min" target="_blank" class="btn-cal">Explore our work — 60 min</a>
+          <p class="contact-card-note">via Cal.com · No signup needed</p>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:2rem;">
+        <p style="font-size:0.85rem;color:rgba(255,255,255,0.4);margin-bottom:0.5rem;">Not sure what you need?</p>
+        <a href="/explore.html" class="btn-ghost">Try Explore — two clicks to a conversation →</a>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <span class="footer-logo">ChangeIS</span>
+    <span class="footer-copy">© 2026 ChangeIS · Wayne Kirk Schmidt · Boston · Tokyo · Global</span>
+  </footer>
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

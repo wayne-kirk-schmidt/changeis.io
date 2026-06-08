@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChangeIS — Proof</title>
+  <meta name="description" content="Fifteen case studies. Measurable outcomes.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css"/>
+  <style>
+    .patent-links { display: flex; gap: 1rem; margin-top: 0.5rem; flex-wrap: wrap; }
+    .patent-links a { color: var(--sky, #7eb8f7); font-size: 0.82rem; font-weight: 600; text-decoration: none; border: 1px solid var(--sky, #7eb8f7); border-radius: 4px; padding: 0.15rem 0.6rem; transition: background 0.2s; }
+    .patent-links a:hover { background: rgba(126,184,247,0.15); }
+    .patent-link-placeholder { color: rgba(255,255,255,0.25); font-size: 0.82rem; font-weight: 600; border: 1px solid rgba(255,255,255,0.15); border-radius: 4px; padding: 0.15rem 0.6rem; }
+    .page-hero { padding: 7rem 0 3rem; text-align: center; }
+    .page-hero .section-eyebrow { margin-bottom: 1rem; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a class="nav-logo" href="/index.html"><span>Change</span>IS</a>
+    <ul class="nav-links">
+      <li><a href="/domains.html">Domains</a></li>
+      <li><a href="/approach.html">Approach</a></li>
+      <li><a href="/proof.html">Proof</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/products.html">Products</a></li>
+      <li><a href="/services.html">Services</a></li>
+      <li><a href="/explore.html">Explore</a></li>
+      <li><a href="/engage.html">Engage</a></li>
+    </ul>
+  </nav>
+  <div class="page-hero section-inner">
+    <p class="section-eyebrow">Delivery Record</p>
+    <h1 class="section-title">The work speaks for itself.</h1>
+    <p class="section-intro">Fifteen case studies across security, ML/AI, infrastructure, and platform engineering — each documented in full with measurable outcomes, following the S.T.A.R.R.Y. framework.</p>
+  </div>
+  <section>
+    <div class="section-inner">
+      <div class="proof-cta reveal" style="text-align:center;margin-top:2.5rem;">
+        <a href="https://casestudies.changeis.io" class="btn-primary" style="display:inline-block;background:#244a86;color:#fff;padding:1rem 2rem;border-radius:12px;text-decoration:none;font-weight:700;font-size:1rem;letter-spacing:0.3px;transition:background 0.2s;">Browse the Case Study Gallery</a>
+      </div>
+      <div style="text-align:center;margin-top:2rem;">
+        <a href="/explore.html" class="btn-ghost">Find Your Solution →</a>
+        <a href="/engage.html" class="btn-ghost" style="margin-left:1rem;">Get in Touch</a>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <span class="footer-logo">ChangeIS</span>
+    <span class="footer-copy">© 2026 ChangeIS · Wayne Kirk Schmidt · Boston · Tokyo · Global</span>
+  </footer>
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
