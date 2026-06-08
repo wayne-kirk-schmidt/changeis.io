@@ -9,34 +9,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles.css"/>
-  <style>
-    .page-wrap { padding-top: 60px; }
-    .page-hero { padding: 3.5rem 0 1rem; text-align: center; }
-    .page-hero .section-intro { max-width: 100%; }
-    .product-strip { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin: 2rem 0 1rem; }
-    .product-strip a { color: var(--sky, #7eb8f7); font-size: 0.8rem; font-weight: 600; text-decoration: none; border: 1px solid rgba(126,184,247,0.3); border-radius: 4px; padding: 0.2rem 0.7rem; transition: background 0.2s; }
-    .product-strip a:hover { background: rgba(126,184,247,0.1); }
-    .thin-card { background: rgba(26,95,156,0.12); border: 1px solid rgba(184,212,238,0.12); border-radius: 8px; padding: 1.5rem 2rem; margin-bottom: 1rem; }
-    .thin-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.35rem; color: #fff; }
-    .thin-card .card-domain { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sky, #7eb8f7); opacity: 0.7; margin-bottom: 0.5rem; }
-    .thin-card .card-whatif { font-size: 0.9rem; font-style: italic; color: rgba(255,255,255,0.6); margin-bottom: 0.75rem; line-height: 1.5; }
-    .thin-card .card-links { display: flex; gap: 0.75rem; }
-    .thin-card .card-links a { color: var(--sky, #7eb8f7); font-size: 0.78rem; font-weight: 600; text-decoration: none; border: 1px solid rgba(126,184,247,0.35); border-radius: 4px; padding: 0.15rem 0.6rem; transition: background 0.2s; }
-    .thin-card .card-links a:hover { background: rgba(126,184,247,0.15); }
-    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .page-cta { text-align: center; padding: 3rem 0 2rem; border-top: 1px solid rgba(184,212,238,0.1); margin-top: 2rem; }
-    .page-cta .btn-primary { margin-right: 1rem; }
-    .gallery-block { text-align: center; padding: 1.5rem 0; }
-    .gallery-btn { display: inline-block; background: #244a86; color: #fff; padding: 1rem 2.5rem; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 1rem; transition: background 0.2s; }
-    .gallery-btn:hover { background: #1a5f9c; }
-    .gallery-copy { font-size: 1rem; color: rgba(255,255,255,0.55); max-width: 680px; margin: 0 auto 2rem; line-height: 1.7; }
-    .gallery-copy-after { font-size: 0.9rem; color: rgba(255,255,255,0.4); max-width: 600px; margin: 2rem auto 0; line-height: 1.7; }
-    @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
-  </style>
 </head>
 <body>
-<div class="page-wrap">
-    <nav>
+
+  <nav>
     <a class="nav-logo" href="/index.html"><span>Change</span>IS</a>
     <ul class="nav-links">
       <li><a href="/domains.html">Domains</a></li>
@@ -48,17 +24,19 @@
     </ul>
   </nav>
 
-  <section id="contact" style="padding-top:2rem;">
+  <section id="contact" style="padding-top:5rem;">
     <div class="section-inner">
       <p class="section-eyebrow">Get in Touch</p>
       <p class="contact-sub">The best conversations start with a simple question.</p>
-      <h1 class="section-title">Let's start with<br><em style="font-style:italic; color:var(--sky,#7eb8f7);">What if?</em></h1>
+      <h1 class="section-title">Let's start with<br><em style="font-style:italic; color:var(--sky);">What if?</em></h1>
       <ul class="contact-questions">
         <li>What if your systems returned time instead of consuming it?</li>
         <li>What if your platforms adapted gracefully to constant change?</li>
         <li>What if your technology amplified your people?</li>
       </ul>
+
       <div class="contact-grid">
+
         <div class="contact-card">
           <p class="contact-card-label">Send a message</p>
           <p class="contact-card-desc">Know what you want to talk about? Reach out directly.</p>
@@ -67,9 +45,15 @@
             <input type="hidden" name="botcheck" value="" style="display:none;">
             <input type="hidden" name="subject" value="New message from changeis.io/engage">
             <input type="hidden" name="redirect" value="https://changeis.io?sent=true">
-            <div class="form-group"><input type="text" name="name" placeholder="Your name" required class="form-input"></div>
-            <div class="form-group"><input type="text" name="company" placeholder="Your company" class="form-input"></div>
-            <div class="form-group"><input type="email" name="email" placeholder="Your email" required class="form-input"></div>
+            <div class="form-group">
+              <input type="text" name="name" placeholder="Your name" required class="form-input">
+            </div>
+            <div class="form-group">
+              <input type="text" name="company" placeholder="Your company" class="form-input">
+            </div>
+            <div class="form-group">
+              <input type="email" name="email" placeholder="Your email" required class="form-input">
+            </div>
             <div class="form-group">
               <select name="topic" class="form-input form-select">
                 <option value="" disabled selected>What brought you here?</option>
@@ -79,11 +63,15 @@
                 <option value="Just exploring">Just exploring</option>
               </select>
             </div>
-            <div class="form-group"><textarea name="message" placeholder="Your message (optional)" class="form-input" style="min-height:100px;resize:vertical;"></textarea></div>
+            <div class="form-group">
+              <textarea name="message" placeholder="Your message (optional)" class="form-input" style="min-height:100px;resize:vertical;"></textarea>
+            </div>
             <button type="submit" class="btn-primary form-submit">Send Message</button>
           </form>
         </div>
+
         <div class="contact-divider"><span>or</span></div>
+
         <div class="contact-card contact-card-cal" style="display:flex;flex-direction:column;gap:0.5rem;">
           <p class="contact-card-label">Book a call</p>
           <p class="contact-card-desc">Pick a time and let us get into it. No preparation needed.</p>
@@ -91,29 +79,21 @@
           <a href="https://cal.com/waynekirkschmidt/changeis-60min" target="_blank" class="btn-cal">Explore our work — 60 min</a>
           <p class="contact-card-note">via Cal.com · No signup needed</p>
         </div>
+
       </div>
+
       <div style="text-align:center;margin-top:2rem;">
         <p style="font-size:0.85rem;color:rgba(255,255,255,0.4);margin-bottom:0.5rem;">Not sure what you need?</p>
         <a href="/explore.html" class="btn-ghost">Find Your Solution — two steps to a conversation</a>
       </div>
+
     </div>
   </section>
+
   <footer>
     <span class="footer-logo">ChangeIS</span>
     <span class="footer-copy">2026 ChangeIS · Wayne Kirk Schmidt · Boston · Tokyo · Global</span>
   </footer>
-</div>
-  <script>
-    const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => entry.target.classList.add('visible'), i * 80);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-    reveals.forEach(el => observer.observe(el));
-  </script>
+
 </body>
 </html>
