@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChangeIS — About</title>
+  <meta name="description" content="Built on the core belief: change should be durable.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css"/>
+  <style>
+    .patent-links { display: flex; gap: 1rem; margin-top: 0.5rem; flex-wrap: wrap; }
+    .patent-links a { color: var(--sky, #7eb8f7); font-size: 0.82rem; font-weight: 600; text-decoration: none; border: 1px solid var(--sky, #7eb8f7); border-radius: 4px; padding: 0.15rem 0.6rem; transition: background 0.2s; }
+    .patent-links a:hover { background: rgba(126,184,247,0.15); }
+    .patent-link-placeholder { color: rgba(255,255,255,0.25); font-size: 0.82rem; font-weight: 600; border: 1px solid rgba(255,255,255,0.15); border-radius: 4px; padding: 0.15rem 0.6rem; }
+    .page-hero { padding: 7rem 0 3rem; text-align: center; }
+    .page-hero .section-eyebrow { margin-bottom: 1rem; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a class="nav-logo" href="/index.html"><span>Change</span>IS</a>
+    <ul class="nav-links">
+      <li><a href="/domains.html">Domains</a></li>
+      <li><a href="/approach.html">Approach</a></li>
+      <li><a href="/proof.html">Proof</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/products.html">Products</a></li>
+      <li><a href="/services.html">Services</a></li>
+      <li><a href="/explore.html">Explore</a></li>
+      <li><a href="/engage.html">Engage</a></li>
+    </ul>
+  </nav>
+  <div class="page-hero section-inner">
+    <p class="section-eyebrow">About ChangeIS</p>
+    <h1 class="section-title">Built on the core belief:<br>change should be durable.</h1>
+  </div>
+  <section id="about">
+    <div class="section-inner">
+      <div class="about-grid">
+        <div>
+          <div class="about-text reveal">
+            <p>ChangeIS was founded on the observation that most technology transformations fail not because of the technology — but because they're built to impress rather than to last. <strong>Every system we build is designed to outlast the engagement.</strong></p>
+            <p>Founded by <strong><a href="https://linkedin.com/in/waynekirkschmidt" style="color:inherit;text-decoration:underline;text-underline-offset:3px;">Wayne Kirk Schmidt</a></strong>, ChangeIS brings deep experience across finance, fintech, insurance, and infrastructure — from global investment banking trading floors in New York and Tokyo to independent advisory across three continents.</p>
+            <p>ChangeIS moves fluidly between architecture, build, and advisory — mixing technical, operational, and governance depth across every engagement.</p>
+          </div>
+          <div style="margin-top:2rem;">
+            <a href="/explore.html" class="btn-primary">Find Your Solution →</a>
+            <a href="/engage.html" class="btn-ghost" style="margin-left:1rem;">Get in Touch</a>
+          </div>
+        </div>
+        <div class="reveal">
+          <div class="about-patents">
+            <div class="patents-title">GuruSuite — Organizational Wisdom Products</div>
+            <div class="patent-item">
+              <div class="patent-name"><img src="https://wayne-kirk-schmidt.github.io/changeis-explainer-videos/Maestro/ChangeIS.Maestro.png" alt="Maestro" style="height:1.1em;vertical-align:middle;margin-right:0.4em;">Maestro</div>
+              <div class="patent-desc">Testing wisdom that grows with you.</div>
+              <div class="patent-links"><a href="/products.html">Learn more</a></div>
+            </div>
+            <div class="patent-item">
+              <div class="patent-name"><img src="https://wayne-kirk-schmidt.github.io/changeis-explainer-videos/Weavr/ChangeIS.Weavr.png" alt="Weavr" style="height:1.1em;vertical-align:middle;margin-right:0.4em;">Weavr</div>
+              <div class="patent-desc">Knowledge wisdom that grows with you.</div>
+              <div class="patent-links"><a href="/products.html">Learn more</a></div>
+            </div>
+            <div class="patent-item">
+              <div class="patent-name"><img src="https://wayne-kirk-schmidt.github.io/changeis-explainer-videos/Nexa/ChangeIS.Nexa.png" alt="Nexa" style="height:1.1em;vertical-align:middle;margin-right:0.4em;">Nexa</div>
+              <div class="patent-desc">DevOps wisdom that grows with you.</div>
+              <div class="patent-links"><a href="/products.html">Learn more</a></div>
+            </div>
+            <div class="patent-item">
+              <div class="patent-name"><img src="https://wayne-kirk-schmidt.github.io/changeis-explainer-videos/Fluid/ChangeIS.Fluid.png" alt="Fluid" style="height:1.1em;vertical-align:middle;margin-right:0.4em;">Fluid</div>
+              <div class="patent-desc">Purpose Engineering wisdom that grows with you.</div>
+              <div class="patent-links"><a href="/products.html">Learn more</a></div>
+            </div>
+            <div style="text-align:center;margin-top:1.5rem;">
+              <a href="/products.html" class="btn-ghost" style="font-size:0.8rem;">View all GuruSuite products →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <span class="footer-logo">ChangeIS</span>
+    <span class="footer-copy">© 2026 ChangeIS · Wayne Kirk Schmidt · Boston · Tokyo · Global</span>
+  </footer>
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
