@@ -4,38 +4,32 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ChangeIS — Architecture &amp; Integration</title>
-  <meta name="description" content="ChangeIS delivers resilient platforms at the intersection of DevOps, ML/AI, and Security. Founder: Wayne Kirk Schmidt, Principal Architect and Integrator.">
+  <meta name="description" content="ChangeIS delivers resilient platforms at the intersection of DevOps, ML/AI, and Security.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles.css"/>
   <style>
-    html, body { height: 100%; overflow: hidden; }
+    html, body { height: 100%; margin: 0; overflow: hidden; }
+    .page-wrap {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
     .hero {
-      height: calc(100vh - 60px - 72px);
-      display: flex; align-items: center;
+      flex: 1;
+      display: flex;
+      align-items: center;
       padding: 0;
+      min-height: 0;
     }
-    .hero-inner { padding-top: 0; }
-    .hero-eyebrow { margin-bottom: 0.4rem; font-size: 0.72rem; }
-    .hero-title { margin-bottom: 0.5rem; }
-    .hero-sub {
-      margin-bottom: 1rem;
-      white-space: nowrap;
-      font-size: 0.95rem;
-    }
-    .hero-actions { gap: 0.75rem; }
     .metrics {
-      height: 72px;
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
+      flex-shrink: 0;
     }
-    .metric-value { font-size: 1.5rem; }
-    .metric-label { font-size: 0.68rem; }
-    footer { display: none; }
   </style>
 </head>
 <body>
+<div class="page-wrap">
 
   <nav>
     <a class="nav-logo" href="/index.html"><span>Change</span>IS</a>
@@ -56,11 +50,14 @@
         Platforms that stand<br>
         <em>the test of change.</em>
       </h1>
-      <p class="hero-sub">
-        We deliver resilient, adaptive systems at the intersection of DevOps, ML/AI, and Security.
-      </p>
+      <p class="hero-sub">We deliver resilient, adaptive systems at the intersection of DevOps, ML/AI, and Security.</p>
+      <div class="hero-actions">
+        <a href="/explore.html" class="btn-primary">Find Your Solution</a>
+        <a href="/engage.html" class="btn-ghost">Get in Touch</a>
+      </div>
     </div>
   </section>
+
   <div class="metrics">
     <div class="metrics-inner">
       <div class="metric">
@@ -82,10 +79,6 @@
     </div>
   </div>
 
-  <footer>
-    <span class="footer-logo">ChangeIS</span>
-    <span class="footer-copy">2026 ChangeIS · Wayne Kirk Schmidt · Boston · Tokyo · Global</span>
-  </footer>
-
+</div>
 </body>
 </html>
