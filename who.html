@@ -417,19 +417,15 @@
       background: rgba(184,212,238,0.1);
     }
 
-    .cal-buttons { display: flex; gap: 10px; width: 100%; }
-    .btn-cal {
-      flex: 1; padding: 0.75rem 1rem;
-      background: transparent;
-      border: 1px solid rgba(126,184,247,0.2);
-      color: rgba(214,232,247,0.6);
-      font-family: var(--sans);
-      font-size: 0.78rem; font-weight: 600;
-      letter-spacing: 0.06em; text-transform: uppercase;
-      text-decoration: none; text-align: center;
-      transition: all 0.2s; border-radius: 0;
+    .cal-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px; width: 100%;
     }
-    .btn-cal:hover { border-color: rgba(126,184,247,0.5); color: var(--white); }
+    .cal-buttons .sel-btn {
+      text-decoration: none;
+      display: flex; align-items: center; justify-content: center;
+    }
 
     .cta-restart {
       margin-top: 2rem;
@@ -505,7 +501,7 @@
       <div>
         <p class="step-label">Step 1 of 2</p>
         <h1 class="col-question">What do <em>you do?</em></h1>
-        <p class="col-hint">Pick the industry that fits. We'll use this to make sure the conversation is relevant to your world.</p>
+        <p class="col-hint">Tell us about yourself. Pick the industry that fits and add any context that helps.</p>
 
         <div class="sentence-builder">
           <div class="sentence-label">Your context so far</div>
@@ -550,7 +546,7 @@
       <div>
         <p class="step-label">Step 2 of 2</p>
         <h2 class="col-question">What is your <em>goal?</em></h2>
-        <p class="col-hint">Pick the possibility that resonates — the one that made you nod. Hover to see the full thought.</p>
+        <p class="col-hint">Tell us about your goal. Pick the possibility that resonates — hover to see the full thought.</p>
 
         <div class="sentence-builder">
           <div class="sentence-label">Your context so far</div>
@@ -665,7 +661,7 @@
       </div>
 
       <div class="success-msg" id="success-msg">
-        ✓ Message sent. Wayne will be in touch.<br>
+        ✓ Sent. Wayne will be in touch shortly.<br>
         <span style="font-size:0.85rem; opacity:0.7;">Want to lock in a time while you're here?</span>
       </div>
 
@@ -675,12 +671,8 @@
         <input type="hidden" name="subject" id="form-subject" value="">
         <input type="hidden" name="message" id="form-message" value="">
         <div class="form-row-2">
-          <div class="form-row">
-            <input type="text" name="name" class="form-input" placeholder="Your name" required>
-          </div>
-          <div class="form-row">
-            <input type="email" name="email" class="form-input" placeholder="Your email" required>
-          </div>
+          <input type="text" name="name" class="form-input" placeholder="Your name" required>
+          <input type="email" name="email" class="form-input" placeholder="Your email" required>
         </div>
         <div class="form-row">
           <input type="text" name="company" class="form-input" placeholder="Your company (optional)">
@@ -688,11 +680,11 @@
         <button type="submit" class="btn-send">Send to ChangeIS →</button>
       </form>
 
-      <div class="cta-or">or book a call directly</div>
+      <div class="cta-or" style="display:none;">or book a call directly</div>
 
-      <div class="cal-buttons">
-        <a class="btn-cal" href="https://cal.com/waynekirkschmidt/changeis-15min" target="_blank">Explore our fit — 15 min</a>
-        <a class="btn-cal" href="https://cal.com/waynekirkschmidt/changeis-60min" target="_blank">Explore our work — 60 min</a>
+      <div class="cal-buttons" style="display:none;">
+        <a class="sel-btn" href="https://cal.com/waynekirkschmidt/changeis-15min" target="_blank">Explore our fit — 15 min</a>
+        <a class="sel-btn" href="https://cal.com/waynekirkschmidt/changeis-60min" target="_blank">Explore our work — 60 min</a>
       </div>
 
       <button class="cta-restart" onclick="restart()">← Start over</button>
@@ -860,7 +852,7 @@
     document.getElementById('form-message').value = msg;
   }
 
-  // Submit via Web3Forms
+  // Submit via Web3Forms — stay on page
   async function submitForm(e) {
     e.preventDefault();
     const form = document.getElementById('send-form');
@@ -868,16 +860,20 @@
     btn.textContent = 'Sending...';
     btn.disabled = true;
 
-    // Sync message field with any edits
     document.getElementById('form-message').value = document.getElementById('cta-message-text').textContent;
 
     const data = new FormData(form);
+    // Remove redirect so we stay on page
+    data.delete('redirect');
+
     try {
       const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: data });
       const json = await res.json();
       if (json.success) {
         form.style.display = 'none';
         document.getElementById('success-msg').style.display = 'block';
+        document.querySelector('.cta-or').style.display = 'flex';
+        document.querySelector('.cal-buttons').style.display = 'grid';
       } else {
         btn.textContent = 'Try again →';
         btn.disabled = false;
@@ -898,6 +894,8 @@
     document.getElementById('send-form').style.display = 'block';
     document.getElementById('send-form').reset();
     document.getElementById('success-msg').style.display = 'none';
+    document.querySelector('.cta-or').style.display = 'none';
+    document.querySelector('.cal-buttons').style.display = 'none';
     const btn = document.querySelector('.btn-send');
     if (btn) { btn.textContent = 'Send to ChangeIS →'; btn.disabled = false; }
     goToPanel1();
