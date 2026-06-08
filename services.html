@@ -16,6 +16,10 @@
     .product-strip { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin: 2rem 0 1rem; }
     .product-strip a { color: var(--sky, #7eb8f7); font-size: 0.8rem; font-weight: 600; text-decoration: none; border: 1px solid rgba(126,184,247,0.3); border-radius: 4px; padding: 0.2rem 0.7rem; transition: background 0.2s; }
     .product-strip a:hover { background: rgba(126,184,247,0.1); }
+    .four-col { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+    .product-strip { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin: 2rem 0 1rem; }
+    .product-strip a { color: var(--sky, #7eb8f7); font-size: 0.8rem; font-weight: 600; text-decoration: none; border: 1px solid rgba(126,184,247,0.3); border-radius: 4px; padding: 0.2rem 0.7rem; transition: background 0.2s; }
+    .product-strip a:hover { background: rgba(126,184,247,0.1); }
     .thin-card { background: rgba(26,95,156,0.12); border: 1px solid rgba(184,212,238,0.12); border-radius: 8px; padding: 1.5rem 2rem; margin-bottom: 1rem; }
     .thin-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.35rem; color: #fff; }
     .thin-card .card-domain { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sky, #7eb8f7); opacity: 0.7; margin-bottom: 0.5rem; }
@@ -51,40 +55,60 @@
   <div class="page-hero section-inner">
     <p class="section-eyebrow">Services</p>
     <h1 class="section-title">When the problem<br><em style="font-style:italic;color:var(--sky,#7eb8f7)">does not have a name yet.</em></h1>
-    <p class="section-intro">Not every challenge fits a named product. ChangeIS delivers bespoke architecture, integration, and advisory engagements built around your specific situation.</p>
+    <p class="section-intro">ChangeIS delivers bespoke architecture, integration, and advisory engagements — built around your specific situation.</p>
   </div>
   <section>
     <div class="section-inner">
-      <div class="thin-card reveal">
-        <img src="https://wayne-kirk-schmidt.github.io/changeis-explainer-videos/Galen/ChangeIS.Galen.png" alt="Galen" style="height:1.6em;margin-bottom:0.6rem;display:block;">
-        <div class="card-domain">Advisory</div>
-        <h3>Galen</h3>
-        <p class="card-whatif">"What if you had trusted strategic guidance at the speed of the decision?"</p>
-        <p style="font-size:0.88rem;color:rgba(255,255,255,0.55);margin-bottom:0.75rem;line-height:1.6;">Fractional CTO, architecture review, strategic direction. Advisory wisdom that grows with you — capturing decisions, context, and rationale so your guidance compounds over time.</p>
-        <div class="card-links">
-          <a href="https://wayne-kirk-schmidt.github.io/changeis-explainer-videos/Galen/ChangeIS.Galen.pdf" target="_blank">PDF</a>
-          <a href="https://wayne-kirk-schmidt.github.io/changeis-explainer-videos/Galen/ChangeIS.Galen.Video.mp4" target="_blank">Video</a>
+      <div class="product-strip"><a href="#galen">Galen</a><a href="#bespoke">Custom Architecture</a><a href="#integration">Systems Integration</a><a href="#something-else">Something Else</a></div>
+      <div class="four-col">
+        <div class="thin-card reveal" id="galen">
+          <img src="https://wayne-kirk-schmidt.github.io/changeis-explainer-videos/Galen/ChangeIS.Galen.png" alt="Galen" style="height:3rem;margin-bottom:0.75rem;display:block;">
+          <div class="card-domain">Advisory</div>
+          <h3>Galen</h3>
+          <p class="card-whatif">"What if you had trusted strategic guidance at the speed of the decision?"</p>
+          <p style="font-size:0.82rem;color:rgba(255,255,255,0.5);margin-bottom:0.75rem;line-height:1.6;">Fractional CTO, architecture review, strategic direction. Advisory wisdom that grows with you — capturing decisions, context, and rationale so your guidance compounds over time.</p>
+          <div class="card-links">
+            <a href="https://wayne-kirk-schmidt.github.io/changeis-explainer-videos/Galen/ChangeIS.Galen.pdf" target="_blank">PDF</a>
+            <a href="https://wayne-kirk-schmidt.github.io/changeis-explainer-videos/Galen/ChangeIS.Galen.Video.mp4" target="_blank">Video</a>
+          </div>
+        </div>
+
+        <div class="thin-card reveal" id="bespoke">
+          <div style="height:3rem;margin-bottom:0.75rem;display:flex;align-items:center;"><span style="font-size:1.8rem;font-weight:800;color:rgba(126,184,247,0.3);">B</span></div>
+          <div class="card-domain">Bespoke Engagements</div>
+          <h3>Custom Architecture</h3>
+          <p class="card-whatif">"What if your platform was built exactly for your situation, not a template?"</p>
+          <p style="font-size:0.82rem;color:rgba(255,255,255,0.5);margin-bottom:0.75rem;line-height:1.6;">Platform builds, system integrations, architecture reviews, and technology transformations delivered as end-to-end engagements. Every system designed to outlast the engagement.</p>
+          <div class="card-links">
+            <a href="/casestudies.html">Case Studies</a>
+            <a href="/engage.html">Get in Touch</a>
+          </div>
+        </div>
+
+        <div class="thin-card reveal" id="integration">
+          <div style="height:3rem;margin-bottom:0.75rem;display:flex;align-items:center;"><span style="font-size:1.8rem;font-weight:800;color:rgba(126,184,247,0.3);">I</span></div>
+          <div class="card-domain">Integration</div>
+          <h3>Systems Integration</h3>
+          <p class="card-whatif">"What if all your systems actually worked together?"</p>
+          <p style="font-size:0.82rem;color:rgba(255,255,255,0.5);margin-bottom:0.75rem;line-height:1.6;">MORPHOS, Production Perimeter, NXT RAW, BEACON. Connecting platforms, data, and teams across complex enterprise environments.</p>
+          <div class="card-links">
+            <a href="/casestudies.html">Case Studies</a>
+            <a href="/engage.html">Get in Touch</a>
+          </div>
+        </div>
+
+        <div class="thin-card reveal" id="something-else">
+          <div style="height:3rem;margin-bottom:0.75rem;display:flex;align-items:center;"><span style="font-size:1.8rem;font-weight:800;color:rgba(126,184,247,0.3);">?</span></div>
+          <div class="card-domain">Open Conversation</div>
+          <h3>Something Else</h3>
+          <p class="card-whatif">"What if you could describe what is broken or what is possible, and that was enough to start?"</p>
+          <p style="font-size:0.82rem;color:rgba(255,255,255,0.5);line-height:1.6;">Wayne has built platforms for problems that did not have names yet. If you can describe it, that is enough.</p>
+          <div class="card-links" style="margin-top:0.75rem;">
+            <a href="/explore.html">Find Your Solution</a>
+            <a href="/engage.html">Get in Touch</a>
+          </div>
         </div>
       </div>
-
-      <div class="thin-card reveal">
-        <div class="card-domain">Bespoke Engagements</div>
-        <h3>Custom Architecture &amp; Integration</h3>
-        <p class="card-whatif">"What if your platform was built exactly for your situation, not a template?"</p>
-        <p style="font-size:0.88rem;color:rgba(255,255,255,0.55);margin-bottom:0.75rem;line-height:1.6;">Platform builds, system integrations, architecture reviews, and technology transformations delivered as end-to-end engagements. Every system designed to outlast the engagement.</p>
-        <div class="card-links">
-          <a href="/casestudies.html">Case Studies</a>
-          <a href="/engage.html">Get in Touch</a>
-        </div>
-      </div>
-
-      <div class="thin-card reveal">
-        <div class="card-domain">Open Conversation</div>
-        <h3>Something Else</h3>
-        <p class="card-whatif">"What if you could describe what is broken or what is possible, and that was enough to start?"</p>
-        <p style="font-size:0.88rem;color:rgba(255,255,255,0.55);line-height:1.6;">Wayne has built platforms for problems that did not have names yet. If you can describe it, that is enough.</p>
-      </div>
-
       <div class="page-cta">
         <a href="/explore.html" class="btn-primary">Find Your Solution</a>
         <a href="/engage.html" class="btn-ghost">Get in Touch</a>
